@@ -146,12 +146,14 @@ const VillaRoseResort = () => {
     },
   };
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   // Fetch rooms from API
   useEffect(() => {
     const fetchRooms = async () => {
       setIsLoadingRooms(true);
       try {
-        const response = await fetch("http://localhost:5000/api/rooms");
+        const response = await fetch(`${API_URL}/api/rooms`);
         const data = await response.json();
 
         if (response.ok && data.rooms && data.rooms.length > 0) {
@@ -328,7 +330,7 @@ const VillaRoseResort = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/bookings/check-availability",
+        `${API_URL}/api/bookings/check-availability`,
         {
           method: "POST",
           headers: {
@@ -391,7 +393,7 @@ const VillaRoseResort = () => {
         guestsCount: bookingFormData.guestsCount,
       });
 
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1297,7 +1299,7 @@ Please send proof of payment to confirm your booking.
             // Refresh rooms after admin changes
             const fetchRooms = async () => {
               try {
-                const response = await fetch("http://localhost:5000/api/rooms");
+                const response = await fetch(`${API_URL}/api/rooms`);
                 const data = await response.json();
 
                 if (response.ok && data.rooms && data.rooms.length > 0) {
