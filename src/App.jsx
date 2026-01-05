@@ -30,6 +30,8 @@ import ContactLinks from "./components/ContactLinks";
 // House rules modal
 import HouseRulesModal from "./components/HouseRulesModal";
 
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
 const VillaRoseResort = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoFloating, setIsLogoFloating] = useState(false);
@@ -456,127 +458,138 @@ Please send proof of payment to confirm your booking.
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-50">
-      {/* Skip Link */}
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-slate-800 focus:rounded-lg"
-      >
-        Skip to content
-      </a>
+    <HelmetProvider>
+      <div className="min-h-screen bg-slate-900 text-slate-50">
+        <Helmet>
+          {/* Primary Meta Tags */}
+          <title>Villa Rose Sea Breeze Resort | Surf, Relax & Mountains</title>
+          <meta
+            name="description"
+            content="Welcome to Villa Rose Sea Breeze Resort. A serene family-owned getaway for surf enthusiasts and beach lovers. Mountains, rolling waves, and calm mornings await."
+          />
+          <meta
+            name="keywords"
+            content="resort, sea breeze, surfing, vacation, villa rose, beach resort, family getaway"
+          />
+          {/* Open Graph / Facebook (Makes your link look good when shared on Messenger/FB) */}
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:url"
+            content="https://www.villarose-resort.com/"
+          />{" "}
+          {/* Replace with actual URL */}
+          <meta property="og:title" content="Villa Rose Sea Breeze Resort" />
+          <meta
+            property="og:description"
+            content="Mountains • Rolling waves • Calm mornings. Book your stay at our cozy haven by the sea."
+          />
+          <meta property="og:image" content={hero} />{" "}
+          {/* Uses your hero image variable for the preview card */}
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta
+            property="twitter:url"
+            content="https://www.villarose-resort.com/"
+          />
+          <meta
+            property="twitter:title"
+            content="Villa Rose Sea Breeze Resort"
+          />
+          <meta
+            property="twitter:description"
+            content="Experience the perfect blend of relaxation and adventure just minutes from the beach."
+          />
+          <meta property="twitter:image" content={hero} />
+        </Helmet>
 
-      {/* Header/Hero */}
-      <header className="relative min-h-[72vh] flex items-center justify-center overflow-hidden pt-16">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{
-            // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Hero Background)
-            backgroundImage: `linear-gradient(180deg, rgba(3,7,18,0.35), rgba(3,7,18,0.6)), url(${hero})`,
-            filter: "contrast(0.98) saturate(1.03)",
-          }}
-        />
+        {/* Skip Link */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-slate-800 focus:rounded-lg"
+        >
+          Skip to content
+        </a>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/15 to-slate-900/55" />
+        {/* Header/Hero */}
+        <header className="relative min-h-[72vh] flex items-center justify-center overflow-hidden pt-16">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-fixed"
+            style={{
+              // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Hero Background)
+              backgroundImage: `linear-gradient(180deg, rgba(3,7,18,0.35), rgba(3,7,18,0.6)), url(${hero})`,
+              filter: "contrast(0.98) saturate(1.03)",
+            }}
+          />
 
-        {/* Top Navigation Bar */}
-        <div className="absolute top-0 left-0 right-0 h-16 flex items-center mt-5 justify-between px-5 z-10">
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`flex items-center gap-3 transition-all duration-200 ${
-              isLogoFloating
-                ? "fixed top-5 left-5 z-[99999] bg-white/5 px-3 py-2 rounded-full shadow-2xl backdrop-blur-sm"
-                : ""
-            }`}
-          >
-            <img
-              // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Logo Image)
-              src={logo}
-              alt="Villa Rose logo"
-              className={`object-contain rounded-full ${
-                isLogoFloating ? "h-10" : "h-20"
-              }`}
-              onError={(e) => (e.target.style.display = "none")}
-            />
-            <span
-              className={`font-bold font-serif ${
-                isLogoFloating ? "hidden" : "block"
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/15 to-slate-900/55" />
+
+          {/* Top Navigation Bar */}
+          <div className="absolute top-0 left-0 right-0 h-16 flex items-center mt-5 justify-between px-5 z-10">
+            {/* Logo */}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className={`flex items-center gap-3 transition-all duration-200 ${
+                isLogoFloating
+                  ? "fixed top-5 left-5 z-[99999] bg-white/5 px-3 py-2 rounded-full shadow-2xl backdrop-blur-sm"
+                  : ""
               }`}
             >
-              Villa Rose Sea Breeze Resort
-            </span>
-          </button>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-slate-50"
-            aria-label="Toggle navigation"
-          >
-            {isMenuOpen ? (
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+              <img
+                // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Logo Image)
+                src={logo}
+                alt="Villa Rose logo"
+                className={`object-contain rounded-full ${
+                  isLogoFloating ? "h-10" : "h-20"
+                }`}
+                onError={(e) => (e.target.style.display = "none")}
+              />
+              <span
+                className={`font-bold font-serif ${
+                  isLogoFloating ? "hidden" : "block"
+                }`}
               >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            ) : (
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-            )}
-          </button>
+                Villa Rose Sea Breeze Resort
+              </span>
+            </button>
 
-          {/* Desktop Navigation
-          <nav className="hidden md:flex items-center gap-3">
-            {["gallery", "rooms", "about", "map", "contact", "house rules"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className="px-3 py-2 rounded-2xl font-semibold uppercase hover:bg-white/5 transition-colors"
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-slate-50"
+              aria-label="Toggle navigation"
+            >
+              {isMenuOpen ? (
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
                 >
-                  {item}
-                </button>
-              )
-            )}
-          </nav> */}
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-3">
-            {["gallery", "rooms", "about", "map", "contact", "house rules"].map(
-              (item) => (
-                <button
-                  key={item}
-                  onClick={() => handleNavClick(item)} // Calling our logic
-                  className="px-3 py-2 rounded-2xl font-semibold uppercase hover:bg-white/5 text-white transition-colors"
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              ) : (
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
                 >
-                  {item}
-                </button>
-              )
-            )}
-          </nav>
-        </div>
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              )}
+            </button>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden absolute top-16 left-0 right-0 bg-slate-900/95 backdrop-blur-lg z-20 p-5">
-            <ul className="space-y-2">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-3">
               {[
                 "gallery",
                 "rooms",
@@ -585,748 +598,775 @@ Please send proof of payment to confirm your booking.
                 "contact",
                 "house rules",
               ].map((item) => (
-                <li key={item}>
-                  <button
-                    onClick={() => scrollToSection(item)}
-                    className="w-full text-left px-4 py-3 rounded-xl font-semibold capitalize hover:bg-white/5 transition-colors"
-                  >
-                    {item}
-                  </button>
-                </li>
+                <button
+                  key={item}
+                  onClick={() => handleNavClick(item)} // Calling our logic
+                  className="px-3 py-2 rounded-2xl font-semibold uppercase hover:bg-white/5 text-white transition-colors"
+                >
+                  {item}
+                </button>
               ))}
-            </ul>
-          </nav>
-        )}
-
-        <HouseRulesModal
-          isOpen={isRulesOpen}
-          onClose={() => setIsRulesOpen(false)}
-        />
-
-        {/* Hero Content */}
-        <div className="relative z-10 w-[calc(100%-40px)] max-w-4xl mx-5 my-5 p-9 rounded-2xl bg-gradient-to-br from-white/6 to-white/2 border border-white/10 backdrop-blur-lg shadow-2xl text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-2">
-            Villa Rose Sea Breeze Resort
-          </h1>
-          <p className="text-slate-200 mb-4">
-            Mountains • Rolling waves • Calm mornings
-          </p>
-          <div className="flex gap-3 justify-center flex-wrap">
-            <button
-              onClick={openBookingModal}
-              className="px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
-            >
-              Book Now
-            </button>
-            <button
-              onClick={() => scrollToSection("gallery")}
-              className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors"
-            >
-              View Gallery
-            </button>
+            </nav>
           </div>
-        </div>
 
-        {/* Decorative Wave */}
-        <svg
-          className="absolute left-0 right-0 bottom-0 h-32 opacity-95 pointer-events-none"
-          viewBox="0 0 1440 160"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <linearGradient id="waveGrad" x1="0" x2="1">
-              <stop offset="0" stopColor="rgba(255,255,255,0.08)" />
-              <stop offset="1" stopColor="rgba(255,255,255,0.03)" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,96 C240,180 480,20 720,96 C960,172 1200,40 1440,96 L1440,160 L0,160 Z"
-            fill="url(#waveGrad)"
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <nav className="md:hidden absolute top-16 left-0 right-0 bg-slate-900/95 backdrop-blur-lg z-20 p-5">
+              <ul className="space-y-2">
+                {[
+                  "gallery",
+                  "rooms",
+                  "about",
+                  "map",
+                  "contact",
+                  "house rules",
+                ].map((item) => (
+                  <li key={item}>
+                    <button
+                      onClick={() => scrollToSection(item)}
+                      className="w-full text-left px-4 py-3 rounded-xl font-semibold capitalize hover:bg-white/5 transition-colors"
+                    >
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          <HouseRulesModal
+            isOpen={isRulesOpen}
+            onClose={() => setIsRulesOpen(false)}
           />
-        </svg>
-      </header>
 
-      {/* Main Content */}
-      <main id="main" className="py-9">
-        {/* Gallery Section */}
-        <section
-          id="gallery"
-          className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
-        >
-          <h2 className="text-3xl font-serif font-semibold mb-6">Gallery</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {galleryImages.map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => openLightbox(galleryImages, idx)}
-                className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer group"
+          {/* Hero Content */}
+          <div className="relative z-10 w-[calc(100%-40px)] max-w-4xl mx-5 my-5 p-9 rounded-2xl bg-gradient-to-br from-white/6 to-white/2 border border-white/10 backdrop-blur-lg shadow-2xl text-center">
+            <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-2">
+              Villa Rose Sea Breeze Resort
+            </h1>
+            <p className="text-slate-200 mb-4">
+              Mountains • Rolling waves • Calm mornings
+            </p>
+            <div className="flex gap-3 justify-center flex-wrap">
+              <button
+                onClick={openBookingModal}
+                className="px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
               >
-                <img
-                  src={img.src} // Uses the imported variable via the galleryImages array
-                  alt={img.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/65 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                  <p className="text-white text-sm">{img.caption}</p>
-                </div>
-              </div>
-            ))}
+                Book Now
+              </button>
+              <button
+                onClick={() => scrollToSection("gallery")}
+                className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors"
+              >
+                View Gallery
+              </button>
+            </div>
           </div>
-        </section>
 
-        {/* Rooms Section */}
-        <section
-          id="rooms"
-          className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
-        >
-          <h2 className="text-3xl font-serif font-semibold mb-6">Rooms</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(rooms).map(([key, room]) => (
-              <article
-                key={key}
-                className="p-4 rounded-2xl bg-gradient-to-b from-white/4 to-white/1 border border-white/5 shadow-lg hover:-translate-y-2 transition-transform"
-              >
-                <h3 className="text-xl font-semibold mb-2">{room.title}</h3>
-                <p className="text-slate-300 text-sm mb-3">
-                  {room.description}
-                </p>
+          {/* Decorative Wave */}
+          <svg
+            className="absolute left-0 right-0 bottom-0 h-32 opacity-95 pointer-events-none"
+            viewBox="0 0 1440 160"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="waveGrad" x1="0" x2="1">
+                <stop offset="0" stopColor="rgba(255,255,255,0.08)" />
+                <stop offset="1" stopColor="rgba(255,255,255,0.03)" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,96 C240,180 480,20 720,96 C960,172 1200,40 1440,96 L1440,160 L0,160 Z"
+              fill="url(#waveGrad)"
+            />
+          </svg>
+        </header>
 
-                {/* Room Carousel */}
-                <div className="relative rounded-2xl overflow-hidden mb-3 group">
+        {/* Main Content */}
+        <main id="main" className="py-9">
+          {/* Gallery Section */}
+          <section
+            id="gallery"
+            className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
+          >
+            <h2 className="text-3xl font-serif font-semibold mb-6">Gallery</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {galleryImages.map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => openLightbox(galleryImages, idx)}
+                  className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer group"
+                >
                   <img
-                    src={room.images[roomCarousels[key]]} // Uses the imported variable via the rooms data structure
-                    alt={`${room.title} - view ${roomCarousels[key] + 1}`}
-                    className="w-full h-48 object-cover cursor-pointer hover:scale-105 transition-transform"
-                    onClick={() => {
-                      const roomImages = room.images.map((src, idx) => ({
-                        src,
-                        alt: `${room.title} - view ${idx + 1}`,
-                        caption: `${room.title} - view ${idx + 1}`,
-                      }));
-                      openLightbox(roomImages, roomCarousels[key]);
-                    }}
+                    src={img.src} // Uses the imported variable via the galleryImages array
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     loading="lazy"
                   />
-
-                  {room.images.length > 1 && (
-                    <>
-                      <button
-                        onClick={() => prevRoomImage(key)}
-                        className="absolute left-2 bottom-2 p-2 rounded-2xl bg-black/50 text-white hover:bg-black/70 transition-colors"
-                        aria-label="Previous image"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => nextRoomImage(key)}
-                        className="absolute right-2 bottom-2 p-2 rounded-2xl bg-cyan-400 text-slate-900 font-bold hover:bg-cyan-300 transition-colors"
-                        aria-label="Next image"
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                      </button>
-                      <div className="absolute left-1/2 -translate-x-1/2 bottom-3 px-2 py-1 rounded-2xl bg-black/40 text-white text-sm">
-                        {roomCarousels[key] + 1} / {room.images.length}
-                      </div>
-                    </>
-                  )}
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/65 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <p className="text-white text-sm">{img.caption}</p>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </section>
 
-                <div className="text-slate-300">
-                  From <strong className="text-slate-50">{room.price}</strong>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section
-          id="about"
-          className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
-        >
-          <h2 className="text-3xl font-serif font-semibold mb-4">About Us</h2>
-          <p className="mb-4 leading-relaxed">
-            Welcome to <strong>Villa Rose Sea Breeze Resort</strong>, your
-            serene getaway just a 5–10 minutes' walk from the beach. Nestled in
-            a paradise for surf enthusiasts, our resort offers the perfect blend
-            of relaxation and adventure for both families and travelers seeking
-            the ocean breeze. As a family-owned business, we take pride in
-            providing a personal touch, making every guest feel at home. Whether
-            you're here to catch waves, unwind by the shore, or simply enjoy
-            quality time with loved ones, Villa Rose Sea Breeze Resort is your
-            cozy haven by the sea. Come for the surf, stay for the warmth, and
-            leave with memories that last a lifetime.
-          </p>
-          <img
-            // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Pool Image)
-            src={pool}
-            alt="coastal breakfast"
-            className="w-full rounded-2xl"
-            loading="lazy"
-          />
-        </section>
-
-        {/* Map Section */}
-        <section
-          id="map"
-          className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
-        >
-          <h2 className="text-3xl font-serif font-semibold mb-4">Find Us</h2>
-          <div className="rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-2 hover:shadow-2xl transition-all">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m22!1m8!1m3!1d4972.395264003847!2d124.3954252238985!3d13.687303698623056!3m2!1i1024!2i768!4f13.1!4m11!3e0!4m5!1s0x33bd808ce09aadf9%3A0xb525a5fab9ca1984!2sCabuco%2C%20Trece%20Martires%20City%2C%20Cavite!3m2!1d14.2749595!2d120.85276549999999!4m3!3m2!1d13.6868292!2d124.4005378!5e1!3m2!1sen!2sph!4v1763611682219!5m2!1sen!2sph"
-              width="100%"
-              height="300"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-          <div className="mt-4">
-            <a
-              href="https://maps.app.goo.gl/az55xVDdkMLda4Yo6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-5 py-2 rounded-full bg-cyan-400 text-slate-900 font-bold hover:-translate-y-1 transition-transform"
-            >
-              Get Directions
-            </a>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section
-          id="contact"
-          className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
-        >
-          <h2 className="text-3xl font-serif font-semibold mb-4">Contact Us</h2>
-          <ContactLinks />
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="pb-10 pt-5 text-center">
-        <div className="w-[90%] max-w-4xl mx-auto p-3 rounded-2xl bg-gradient-to-b from-white/4 to-white/1 border border-white/5 backdrop-blur-sm">
-          <p
-            className="text-slate-300 text-sm cursor-pointer select-none"
-            onDoubleClick={() => setIsAdminOpen(true)}
-            title="Double-click for admin access"
+          {/* Rooms Section */}
+          <section
+            id="rooms"
+            className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
           >
-            © {new Date().getFullYear()} Villa Rose Sea Breeze Resort — All
-            rights reserved.
-          </p>
-        </div>
-      </footer>
+            <h2 className="text-3xl font-serif font-semibold mb-6">Rooms</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Object.entries(rooms).map(([key, room]) => (
+                <article
+                  key={key}
+                  className="p-4 rounded-2xl bg-gradient-to-b from-white/4 to-white/1 border border-white/5 shadow-lg hover:-translate-y-2 transition-transform"
+                >
+                  <h3 className="text-xl font-semibold mb-2">{room.title}</h3>
+                  <p className="text-slate-300 text-sm mb-3">
+                    {room.description}
+                  </p>
 
-      {/* HouseRulesModal
+                  {/* Room Carousel */}
+                  <div className="relative rounded-2xl overflow-hidden mb-3 group">
+                    <img
+                      src={room.images[roomCarousels[key]]} // Uses the imported variable via the rooms data structure
+                      alt={`${room.title} - view ${roomCarousels[key] + 1}`}
+                      className="w-full h-48 object-cover cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => {
+                        const roomImages = room.images.map((src, idx) => ({
+                          src,
+                          alt: `${room.title} - view ${idx + 1}`,
+                          caption: `${room.title} - view ${idx + 1}`,
+                        }));
+                        openLightbox(roomImages, roomCarousels[key]);
+                      }}
+                      loading="lazy"
+                    />
+
+                    {room.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => prevRoomImage(key)}
+                          className="absolute left-2 bottom-2 p-2 rounded-2xl bg-black/50 text-white hover:bg-black/70 transition-colors"
+                          aria-label="Previous image"
+                        >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                          </svg>
+                        </button>
+                        <button
+                          onClick={() => nextRoomImage(key)}
+                          className="absolute right-2 bottom-2 p-2 rounded-2xl bg-cyan-400 text-slate-900 font-bold hover:bg-cyan-300 transition-colors"
+                          aria-label="Next image"
+                        >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                          </svg>
+                        </button>
+                        <div className="absolute left-1/2 -translate-x-1/2 bottom-3 px-2 py-1 rounded-2xl bg-black/40 text-white text-sm">
+                          {roomCarousels[key] + 1} / {room.images.length}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="text-slate-300">
+                    From <strong className="text-slate-50">{room.price}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* About Section */}
+          <section
+            id="about"
+            className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
+          >
+            <h2 className="text-3xl font-serif font-semibold mb-4">About Us</h2>
+            <p className="mb-4 leading-relaxed">
+              Welcome to <strong>Villa Rose Sea Breeze Resort</strong>, your
+              serene getaway just a 5–10 minutes' walk from the beach. Nestled
+              in a paradise for surf enthusiasts, our resort offers the perfect
+              blend of relaxation and adventure for both families and travelers
+              seeking the ocean breeze. As a family-owned business, we take
+              pride in providing a personal touch, making every guest feel at
+              home. Whether you're here to catch waves, unwind by the shore, or
+              simply enjoy quality time with loved ones, Villa Rose Sea Breeze
+              Resort is your cozy haven by the sea. Come for the surf, stay for
+              the warmth, and leave with memories that last a lifetime.
+            </p>
+            <img
+              // 🖼️ STEP 3: UPDATE INLINE REFERENCES (Pool Image)
+              src={pool}
+              alt="coastal breakfast"
+              className="w-full rounded-2xl"
+              loading="lazy"
+            />
+          </section>
+
+          {/* Map Section */}
+          <section
+            id="map"
+            className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
+          >
+            <h2 className="text-3xl font-serif font-semibold mb-4">Find Us</h2>
+            <div className="rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-2 hover:shadow-2xl transition-all">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m22!1m8!1m3!1d4972.395264003847!2d124.3954252238985!3d13.687303698623056!3m2!1i1024!2i768!4f13.1!4m11!3e0!4m5!1s0x33bd808ce09aadf9%3A0xb525a5fab9ca1984!2sCabuco%2C%20Trece%20Martires%20City%2C%20Cavite!3m2!1d14.2749595!2d120.85276549999999!4m3!3m2!1d13.6868292!2d124.4005378!5e1!3m2!1sen!2sph!4v1763611682219!5m2!1sen!2sph"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="mt-4">
+              <a
+                href="https://maps.app.goo.gl/az55xVDdkMLda4Yo6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-5 py-2 rounded-full bg-cyan-400 text-slate-900 font-bold hover:-translate-y-1 transition-transform"
+              >
+                Get Directions
+              </a>
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section
+            id="contact"
+            className="w-[90%] max-w-4xl mx-auto my-9 p-6 rounded-2xl bg-gradient-to-b from-white/3 to-white/1 border border-white/10 backdrop-blur-lg shadow-xl"
+          >
+            <h2 className="text-3xl font-serif font-semibold mb-4">
+              Contact Us
+            </h2>
+            <ContactLinks />
+          </section>
+        </main>
+
+        {/* Footer */}
+        <footer className="pb-10 pt-5 text-center">
+          <div className="w-[90%] max-w-4xl mx-auto p-3 rounded-2xl bg-gradient-to-b from-white/4 to-white/1 border border-white/5 backdrop-blur-sm">
+            <p
+              className="text-slate-300 text-sm cursor-pointer select-none"
+              onDoubleClick={() => setIsAdminOpen(true)}
+              title="Double-click for admin access"
+            >
+              © {new Date().getFullYear()} Villa Rose Sea Breeze Resort — All
+              rights reserved.
+            </p>
+          </div>
+        </footer>
+
+        {/* HouseRulesModal
       <HouseRulesModal
         isOpen={isRulesOpen}
         onClose={() => setIsRulesOpen(false)}
       /> */}
 
-      {/* Lightbox Modal */}
-      {lightbox.isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-sm"
-          onClick={closeLightbox}
-        >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-5 right-5 text-white text-4xl hover:scale-110 transition-transform"
-            aria-label="Close preview"
-          >
-            ×
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              prevLightboxImage();
-            }}
-            className="absolute left-5 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center text-2xl hover:bg-white/20 transition-colors shadow-2xl"
-            aria-label="Previous image"
-          >
-            ◀
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              nextLightboxImage();
-            }}
-            className="absolute right-5 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center text-2xl hover:bg-white/20 transition-colors shadow-2xl"
-            aria-label="Next image"
-          >
-            ▶
-          </button>
-
+        {/* Lightbox Modal */}
+        {lightbox.isOpen && (
           <div
-            className="max-w-5xl w-[calc(100%-40px)] p-3 text-center"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/90 backdrop-blur-sm"
+            onClick={closeLightbox}
           >
-            <img
-              src={lightbox.images[lightbox.index]?.src} // Uses the imported variable via the lightbox state
-              alt={lightbox.images[lightbox.index]?.alt}
-              className="max-w-full h-auto rounded-2xl shadow-2xl"
-            />
-            {lightbox.images[lightbox.index]?.caption && (
-              <p className="mt-3 text-slate-300">
-                {lightbox.images[lightbox.index].caption}
-              </p>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Booking Modal */}
-      {isBookingModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/95 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="relative w-full max-w-6xl my-4 sm:my-8">
-            {/* Close Button */}
             <button
-              onClick={closeBookingModal}
-              className="absolute -top-2 -right-2 sm:top-4 sm:right-4 z-20 w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center text-2xl border border-white/20"
-              aria-label="Close booking"
+              onClick={closeLightbox}
+              className="absolute top-5 right-5 text-white text-4xl hover:scale-110 transition-transform"
+              aria-label="Close preview"
             >
               ×
             </button>
 
-            {/* Notification */}
-            {notification && (
-              <div
-                className={`fixed top-4 left-1/2 -translate-x-1/2 z-[60] px-6 py-3 rounded-full shadow-2xl ${
-                  notification.type === "success"
-                    ? "bg-green-500 text-white"
-                    : "bg-red-500 text-white"
-                }`}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevLightboxImage();
+              }}
+              className="absolute left-5 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center text-2xl hover:bg-white/20 transition-colors shadow-2xl"
+              aria-label="Previous image"
+            >
+              ◀
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextLightboxImage();
+              }}
+              className="absolute right-5 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 text-white flex items-center justify-center text-2xl hover:bg-white/20 transition-colors shadow-2xl"
+              aria-label="Next image"
+            >
+              ▶
+            </button>
+
+            <div
+              className="max-w-5xl w-[calc(100%-40px)] p-3 text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={lightbox.images[lightbox.index]?.src} // Uses the imported variable via the lightbox state
+                alt={lightbox.images[lightbox.index]?.alt}
+                className="max-w-full h-auto rounded-2xl shadow-2xl"
+              />
+              {lightbox.images[lightbox.index]?.caption && (
+                <p className="mt-3 text-slate-300">
+                  {lightbox.images[lightbox.index].caption}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Booking Modal */}
+        {isBookingModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/95 backdrop-blur-sm p-4 overflow-y-auto">
+            <div className="relative w-full max-w-6xl my-4 sm:my-8">
+              {/* Close Button */}
+              <button
+                onClick={closeBookingModal}
+                className="absolute -top-2 -right-2 sm:top-4 sm:right-4 z-20 w-10 h-10 rounded-full bg-slate-800 text-white flex items-center justify-center text-2xl border border-white/20"
+                aria-label="Close booking"
               >
-                {notification.message}
-              </div>
-            )}
+                ×
+              </button>
 
-            {/* Gallery View */}
-            {bookingStep === "gallery" && (
-              <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-4 sm:p-8 backdrop-blur-lg">
-                <h2 className="text-2xl sm:text-3xl font-serif font-semibold mb-6 text-center">
-                  Choose Your Room
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                  {Object.entries(rooms).map(([key, room]) => (
-                    <div
-                      key={key}
-                      onClick={() => selectRoom(key)}
-                      className="group cursor-pointer rounded-2xl overflow-hidden bg-gradient-to-b from-white/8 to-white/2 border border-white/10 hover:border-cyan-400/50 transition-all hover:-translate-y-2 shadow-xl"
-                    >
-                      <div className="relative h-48 overflow-hidden">
-                        <img
-                          src={room.images[0]}
-                          alt={room.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-xl font-semibold mb-2">
-                          {room.title}
-                        </h3>
-                        <p className="text-slate-300 text-sm mb-3 line-clamp-2">
-                          {room.description}
-                        </p>
-                        <p className="text-cyan-400 font-bold">
-                          From {room.price}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Room Details View */}
-            {bookingStep === "details" && selectedRoom && (
-              <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
-                <button
-                  onClick={goBackToGallery}
-                  className="mb-4 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2"
+              {/* Notification */}
+              {notification && (
+                <div
+                  className={`fixed top-4 left-1/2 -translate-x-1/2 z-[60] px-6 py-3 rounded-full shadow-2xl ${
+                    notification.type === "success"
+                      ? "bg-green-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}
                 >
-                  ← Back to Rooms
-                </button>
+                  {notification.message}
+                </div>
+              )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {/* Photo Gallery */}
-                  <div>
-                    <div className="relative rounded-2xl overflow-hidden mb-4">
-                      <img
-                        src={
-                          rooms[selectedRoom].images[
-                            roomCarousels[selectedRoom]
-                          ]
-                        }
-                        alt={rooms[selectedRoom].title}
-                        className="w-full h-96 object-cover"
-                      />
+              {/* Gallery View */}
+              {bookingStep === "gallery" && (
+                <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-4 sm:p-8 backdrop-blur-lg">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-semibold mb-6 text-center">
+                    Choose Your Room
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                    {Object.entries(rooms).map(([key, room]) => (
+                      <div
+                        key={key}
+                        onClick={() => selectRoom(key)}
+                        className="group cursor-pointer rounded-2xl overflow-hidden bg-gradient-to-b from-white/8 to-white/2 border border-white/10 hover:border-cyan-400/50 transition-all hover:-translate-y-2 shadow-xl"
+                      >
+                        <div className="relative h-48 overflow-hidden">
+                          <img
+                            src={room.images[0]}
+                            alt={room.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="text-xl font-semibold mb-2">
+                            {room.title}
+                          </h3>
+                          <p className="text-slate-300 text-sm mb-3 line-clamp-2">
+                            {room.description}
+                          </p>
+                          <p className="text-cyan-400 font-bold">
+                            From {room.price}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Room Details View */}
+              {bookingStep === "details" && selectedRoom && (
+                <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
+                  <button
+                    onClick={goBackToGallery}
+                    className="mb-4 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2"
+                  >
+                    ← Back to Rooms
+                  </button>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Photo Gallery */}
+                    <div>
+                      <div className="relative rounded-2xl overflow-hidden mb-4">
+                        <img
+                          src={
+                            rooms[selectedRoom].images[
+                              roomCarousels[selectedRoom]
+                            ]
+                          }
+                          alt={rooms[selectedRoom].title}
+                          className="w-full h-96 object-cover"
+                        />
+                        {rooms[selectedRoom].images.length > 1 && (
+                          <>
+                            <button
+                              onClick={() => prevRoomImage(selectedRoom)}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+                            >
+                              ◀
+                            </button>
+                            <button
+                              onClick={() => nextRoomImage(selectedRoom)}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+                            >
+                              ▶
+                            </button>
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/50 text-white text-sm">
+                              {roomCarousels[selectedRoom] + 1} /{" "}
+                              {rooms[selectedRoom].images.length}
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Thumbnail Gallery */}
                       {rooms[selectedRoom].images.length > 1 && (
-                        <>
-                          <button
-                            onClick={() => prevRoomImage(selectedRoom)}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                          >
-                            ◀
-                          </button>
-                          <button
-                            onClick={() => nextRoomImage(selectedRoom)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                          >
-                            ▶
-                          </button>
-                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/50 text-white text-sm">
-                            {roomCarousels[selectedRoom] + 1} /{" "}
-                            {rooms[selectedRoom].images.length}
-                          </div>
-                        </>
+                        <div className="grid grid-cols-3 gap-2">
+                          {rooms[selectedRoom].images.map((img, idx) => (
+                            <img
+                              key={idx}
+                              src={img}
+                              alt={`${rooms[selectedRoom].title} view ${
+                                idx + 1
+                              }`}
+                              className={`w-full h-20 object-cover rounded-lg cursor-pointer border-2 ${
+                                roomCarousels[selectedRoom] === idx
+                                  ? "border-cyan-400"
+                                  : "border-white/10"
+                              } hover:border-cyan-400/50 transition-colors`}
+                              onClick={() =>
+                                setRoomCarousels((prev) => ({
+                                  ...prev,
+                                  [selectedRoom]: idx,
+                                }))
+                              }
+                            />
+                          ))}
+                        </div>
                       )}
                     </div>
 
-                    {/* Thumbnail Gallery */}
-                    {rooms[selectedRoom].images.length > 1 && (
-                      <div className="grid grid-cols-3 gap-2">
-                        {rooms[selectedRoom].images.map((img, idx) => (
-                          <img
+                    {/* Room Info */}
+                    <div>
+                      <h2 className="text-3xl font-serif font-semibold mb-3">
+                        {rooms[selectedRoom].title}
+                      </h2>
+                      <p className="text-2xl text-cyan-400 font-bold mb-4">
+                        From {rooms[selectedRoom].price}
+                      </p>
+                      <p className="text-slate-200 mb-6 leading-relaxed">
+                        {rooms[selectedRoom].description}
+                      </p>
+
+                      {/* Amenities */}
+                      <h3 className="text-xl font-semibold mb-3">Amenities</h3>
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        {rooms[selectedRoom].amenities.map((amenity, idx) => (
+                          <div
                             key={idx}
-                            src={img}
-                            alt={`${rooms[selectedRoom].title} view ${idx + 1}`}
-                            className={`w-full h-20 object-cover rounded-lg cursor-pointer border-2 ${
-                              roomCarousels[selectedRoom] === idx
-                                ? "border-cyan-400"
-                                : "border-white/10"
-                            } hover:border-cyan-400/50 transition-colors`}
-                            onClick={() =>
-                              setRoomCarousels((prev) => ({
-                                ...prev,
-                                [selectedRoom]: idx,
-                              }))
-                            }
-                          />
+                            className="flex items-center gap-2 text-slate-300"
+                          >
+                            <svg
+                              className="w-5 h-5 text-cyan-400"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                            <span>{amenity}</span>
+                          </div>
                         ))}
                       </div>
-                    )}
-                  </div>
 
-                  {/* Room Info */}
-                  <div>
-                    <h2 className="text-3xl font-serif font-semibold mb-3">
-                      {rooms[selectedRoom].title}
-                    </h2>
-                    <p className="text-2xl text-cyan-400 font-bold mb-4">
-                      From {rooms[selectedRoom].price}
-                    </p>
-                    <p className="text-slate-200 mb-6 leading-relaxed">
-                      {rooms[selectedRoom].description}
-                    </p>
-
-                    {/* Amenities */}
-                    <h3 className="text-xl font-semibold mb-3">Amenities</h3>
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      {rooms[selectedRoom].amenities.map((amenity, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center gap-2 text-slate-300"
-                        >
-                          <svg
-                            className="w-5 h-5 text-cyan-400"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                          <span>{amenity}</span>
-                        </div>
-                      ))}
+                      <button
+                        onClick={goToBookingForm}
+                        className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
+                      >
+                        Book This Room
+                      </button>
                     </div>
-
-                    <button
-                      onClick={goToBookingForm}
-                      className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
-                    >
-                      Book This Room
-                    </button>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Booking Form View */}
-            {bookingStep === "form" && selectedRoom && (
-              <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
-                <button
-                  onClick={goBackToDetails}
-                  className="mb-4 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2"
-                >
-                  ← Back to Room Details
-                </button>
+              {/* Booking Form View */}
+              {bookingStep === "form" && selectedRoom && (
+                <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
+                  <button
+                    onClick={goBackToDetails}
+                    className="mb-4 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center gap-2"
+                  >
+                    ← Back to Room Details
+                  </button>
 
-                <h2 className="text-3xl font-serif font-semibold mb-2">
-                  Complete Your Booking
-                </h2>
-                <p className="text-slate-300 mb-6">
-                  Booking: {rooms[selectedRoom].title}
-                </p>
+                  <h2 className="text-3xl font-serif font-semibold mb-2">
+                    Complete Your Booking
+                  </h2>
+                  <p className="text-slate-300 mb-6">
+                    Booking: {rooms[selectedRoom].title}
+                  </p>
 
-                <form
-                  onSubmit={submitBooking}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                >
-                  {/* Check-in Date */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Check-in Date *
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      min={new Date().toISOString().split("T")[0]}
-                      value={bookingFormData.checkIn}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          checkIn: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Check-out Date */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Check-out Date *
-                    </label>
-                    <input
-                      type="date"
-                      required
-                      min={
-                        bookingFormData.checkIn ||
-                        new Date().toISOString().split("T")[0]
-                      }
-                      value={bookingFormData.checkOut}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          checkOut: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Number of Guests */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Number of Guests *
-                    </label>
-                    <input
-                      type="number"
-                      required
-                      min="1"
-                      max="10"
-                      value={bookingFormData.guestsCount}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          guestsCount: parseInt(e.target.value),
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                    />
-                  </div>
-
-                  {/* Availability Check Button */}
-                  <div className="flex items-end">
-                    <button
-                      type="button"
-                      onClick={checkAvailability}
-                      disabled={
-                        isLoading ||
-                        !bookingFormData.checkIn ||
-                        !bookingFormData.checkOut
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-cyan-400/50 text-cyan-400 font-semibold hover:bg-cyan-400/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isLoading ? "Checking..." : "Check Availability"}
-                    </button>
-                  </div>
-
-                  {/* Availability Status */}
-                  {availabilityStatus && (
-                    <div
-                      className={`md:col-span-2 p-4 rounded-xl ${
-                        availabilityStatus.available
-                          ? "bg-green-500/20 border border-green-500/50 text-green-300"
-                          : "bg-red-500/20 border border-red-500/50 text-red-300"
-                      }`}
-                    >
-                      {availabilityStatus.message}
+                  <form
+                    onSubmit={submitBooking}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                  >
+                    {/* Check-in Date */}
+                    <div>
+                      <label className="block text-sm font-semibold mb-2">
+                        Check-in Date *
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        min={new Date().toISOString().split("T")[0]}
+                        value={bookingFormData.checkIn}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            checkIn: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                      />
                     </div>
-                  )}
 
-                  {/* Guest Name */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={bookingFormData.guestName}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          guestName: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                      placeholder="John Doe"
-                    />
-                  </div>
+                    {/* Check-out Date */}
+                    <div>
+                      <label className="block text-sm font-semibold mb-2">
+                        Check-out Date *
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        min={
+                          bookingFormData.checkIn ||
+                          new Date().toISOString().split("T")[0]
+                        }
+                        value={bookingFormData.checkOut}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            checkOut: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                      />
+                    </div>
 
-                  {/* Guest Email */}
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={bookingFormData.guestEmail}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          guestEmail: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                      placeholder="john@example.com"
-                    />
-                  </div>
+                    {/* Number of Guests */}
+                    <div>
+                      <label className="block text-sm font-semibold mb-2">
+                        Number of Guests *
+                      </label>
+                      <input
+                        type="number"
+                        required
+                        min="1"
+                        max="10"
+                        value={bookingFormData.guestsCount}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            guestsCount: parseInt(e.target.value),
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                      />
+                    </div>
 
-                  {/* Guest Phone */}
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold mb-2">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={bookingFormData.guestPhone}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          guestPhone: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
-                      placeholder="+63 912 345 6789"
-                    />
-                  </div>
+                    {/* Availability Check Button */}
+                    <div className="flex items-end">
+                      <button
+                        type="button"
+                        onClick={checkAvailability}
+                        disabled={
+                          isLoading ||
+                          !bookingFormData.checkIn ||
+                          !bookingFormData.checkOut
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-cyan-400/50 text-cyan-400 font-semibold hover:bg-cyan-400/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isLoading ? "Checking..." : "Check Availability"}
+                      </button>
+                    </div>
 
-                  {/* Special Requests */}
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold mb-2">
-                      Special Requests (Optional)
-                    </label>
-                    <textarea
-                      rows="3"
-                      value={bookingFormData.specialRequests}
-                      onChange={(e) =>
-                        setBookingFormData({
-                          ...bookingFormData,
-                          specialRequests: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none resize-none"
-                      placeholder="Any special requests or requirements..."
-                    />
-                  </div>
+                    {/* Availability Status */}
+                    {availabilityStatus && (
+                      <div
+                        className={`md:col-span-2 p-4 rounded-xl ${
+                          availabilityStatus.available
+                            ? "bg-green-500/20 border border-green-500/50 text-green-300"
+                            : "bg-red-500/20 border border-red-500/50 text-red-300"
+                        }`}
+                      >
+                        {availabilityStatus.message}
+                      </div>
+                    )}
 
-                  {/* Submit Button */}
-                  <div className="md:col-span-2">
-                    <button
-                      type="submit"
-                      disabled={
-                        isLoading ||
-                        (availabilityStatus && !availabilityStatus.available)
-                      }
-                      className="w-full px-6 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                    >
-                      {isLoading ? "Processing..." : "Confirm Booking"}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
+                    {/* Guest Name */}
+                    <div>
+                      <label className="block text-sm font-semibold mb-2">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={bookingFormData.guestName}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            guestName: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                        placeholder="John Doe"
+                      />
+                    </div>
+
+                    {/* Guest Email */}
+                    <div>
+                      <label className="block text-sm font-semibold mb-2">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={bookingFormData.guestEmail}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            guestEmail: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+
+                    {/* Guest Phone */}
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-semibold mb-2">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        value={bookingFormData.guestPhone}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            guestPhone: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
+                        placeholder="+63 912 345 6789"
+                      />
+                    </div>
+
+                    {/* Special Requests */}
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-semibold mb-2">
+                        Special Requests (Optional)
+                      </label>
+                      <textarea
+                        rows="3"
+                        value={bookingFormData.specialRequests}
+                        onChange={(e) =>
+                          setBookingFormData({
+                            ...bookingFormData,
+                            specialRequests: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none resize-none"
+                        placeholder="Any special requests or requirements..."
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="md:col-span-2">
+                      <button
+                        type="submit"
+                        disabled={
+                          isLoading ||
+                          (availabilityStatus && !availabilityStatus.available)
+                        }
+                        className="w-full px-6 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                      >
+                        {isLoading ? "Processing..." : "Confirm Booking"}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Admin Dashboard */}
-      {isAdminOpen && (
-        <AdminDashboard
-          onClose={() => {
-            setIsAdminOpen(false);
-            // Refresh rooms after admin changes
-            const fetchRooms = async () => {
-              try {
-                const response = await fetch(`${API_URL}/api/rooms`);
-                const data = await response.json();
+        {/* Admin Dashboard */}
+        {isAdminOpen && (
+          <AdminDashboard
+            onClose={() => {
+              setIsAdminOpen(false);
+              // Refresh rooms after admin changes
+              const fetchRooms = async () => {
+                try {
+                  const response = await fetch(`${API_URL}/api/rooms`);
+                  const data = await response.json();
 
-                if (response.ok && data.rooms && data.rooms.length > 0) {
-                  const roomsObj = {};
-                  data.rooms.forEach((room) => {
-                    roomsObj[room.key] = {
-                      ...room,
-                      images: Array.isArray(room.images)
-                        ? room.images
-                        : JSON.parse(room.images || "[]"),
-                      amenities: Array.isArray(room.amenities)
-                        ? room.amenities
-                        : JSON.parse(room.amenities || "[]"),
-                    };
-                  });
-                  setRooms(roomsObj);
+                  if (response.ok && data.rooms && data.rooms.length > 0) {
+                    const roomsObj = {};
+                    data.rooms.forEach((room) => {
+                      roomsObj[room.key] = {
+                        ...room,
+                        images: Array.isArray(room.images)
+                          ? room.images
+                          : JSON.parse(room.images || "[]"),
+                        amenities: Array.isArray(room.amenities)
+                          ? room.amenities
+                          : JSON.parse(room.amenities || "[]"),
+                      };
+                    });
+                    setRooms(roomsObj);
+                  }
+                } catch (error) {
+                  console.error("Error refreshing rooms:", error);
                 }
-              } catch (error) {
-                console.error("Error refreshing rooms:", error);
-              }
-            };
-            fetchRooms();
-          }}
-        />
-      )}
-    </div>
+              };
+              fetchRooms();
+            }}
+          />
+        )}
+      </div>
+    </HelmetProvider>
   );
 };
-
 export default VillaRoseResort;
