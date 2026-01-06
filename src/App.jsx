@@ -331,20 +331,17 @@ const VillaRoseResort = () => {
     setAvailabilityStatus(null);
 
     try {
-      const response = await fetch(
-        `${API_URL}/api/bookings/check-availability`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            roomType: selectedRoom,
-            checkIn: bookingFormData.checkIn,
-            checkOut: bookingFormData.checkOut,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/bookings/check-availability`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          roomType: selectedRoom,
+          checkIn: bookingFormData.checkIn,
+          checkOut: bookingFormData.checkOut,
+        }),
+      });
 
       const data = await response.json();
 
@@ -395,7 +392,7 @@ const VillaRoseResort = () => {
         guestsCount: bookingFormData.guestsCount,
       });
 
-      const response = await fetch(`${API_URL}/api/bookings`, {
+      const response = await fetch(`${API_URL}/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
