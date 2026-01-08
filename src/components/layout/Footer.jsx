@@ -20,7 +20,7 @@ export default function Footer({ onAdminAccess }) {
     setError("");
 
     try {
-      const response = await fetch(`${API_URL}/api/admin/login`, {
+      const response = await fetch(`${API_URL}/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
