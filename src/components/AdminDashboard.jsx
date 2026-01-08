@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const AdminDashboard = ({ onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
+  const [adminToken, setAdminToken] = useState("");
   const [activeTab, setActiveTab] = useState("rooms");
   const [rooms, setRooms] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -19,7 +18,6 @@ const AdminDashboard = ({ onClose }) => {
     images: [""],
     amenities: [""],
   });
-
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   const showNotification = (message, type = "success") => {
@@ -27,12 +25,13 @@ const AdminDashboard = ({ onClose }) => {
     setTimeout(() => setNotification(null), 5000);
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setAdminPassword(password);
-    setIsAuthenticated(true);
-    setPassword("");
-  };
+  useEffect(() => {
+    const token = sessionStorage.getItem("adminToken");
+    if (token) {
+      setAdminToken(token);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const fetchRooms = async () => {
     setIsLoading(true);
@@ -57,7 +56,7 @@ const AdminDashboard = ({ onClose }) => {
     try {
       const response = await fetch(`${API_URL}/bookings`, {
         headers: {
-          "X-Admin-Password": adminPassword,
+          Authorization: `Bearer ${adminToken}`,
         },
       });
       const data = await response.json();
@@ -82,7 +81,7 @@ const AdminDashboard = ({ onClose }) => {
         fetchBookings();
       }
     }
-  }, [isAuthenticated, activeTab]);
+  }, [isAuthenticated, activeTab, adminToken]);
 
   const handleConfirmPayment = async (bookingId) => {
     if (
@@ -92,7 +91,6 @@ const AdminDashboard = ({ onClose }) => {
     ) {
       return;
     }
-
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -100,13 +98,11 @@ const AdminDashboard = ({ onClose }) => {
         {
           method: "POST",
           headers: {
-            "X-Admin-Password": adminPassword,
+            Authorization: `Bearer ${adminToken}`,
           },
         }
       );
-
       const data = await response.json();
-
       if (response.ok) {
         showNotification(
           "✅ Payment confirmed! Confirmation email sent to guest.",
@@ -166,30 +162,25 @@ const AdminDashboard = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     const cleanedData = {
       ...formData,
       images: formData.images.filter((img) => img.trim() !== ""),
       amenities: formData.amenities.filter((am) => am.trim() !== ""),
     };
-
     try {
       const url = editingRoom
         ? `${API_URL}/rooms/${editingRoom.id}`
         : `${API_URL}/rooms`;
       const method = editingRoom ? "PUT" : "POST";
-
       const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
-          "X-Admin-Password": adminPassword,
+          Authorization: `Bearer ${adminToken}`,
         },
         body: JSON.stringify(cleanedData),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         showNotification(
           editingRoom
@@ -232,18 +223,15 @@ const AdminDashboard = ({ onClose }) => {
 
   const handleDelete = async (roomId) => {
     if (!window.confirm("Are you sure you want to delete this room?")) return;
-
     setIsLoading(true);
     try {
       const response = await fetch(`${API_URL}/rooms/${roomId}`, {
         method: "DELETE",
         headers: {
-          "X-Admin-Password": adminPassword,
+          Authorization: `Bearer ${adminToken}`,
         },
       });
-
       const data = await response.json();
-
       if (response.ok) {
         showNotification("Room deleted successfully!", "success");
         fetchRooms();
@@ -258,42 +246,29 @@ const AdminDashboard = ({ onClose }) => {
     }
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("adminToken");
+    setIsAuthenticated(false);
+    setAdminToken("");
+    onClose();
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/95 backdrop-blur-sm">
         <div className="w-full max-w-md p-8 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 backdrop-blur-lg shadow-2xl">
           <h2 className="text-3xl font-serif font-semibold mb-6 text-center text-white">
-            Admin Login
+            Not Authenticated
           </h2>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-white">
-                Admin Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none transition-colors text-white"
-                required
-              />
-            </div>
-            <div className="flex gap-3">
-              <button
-                type="submit"
-                className="flex-1 px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors text-white"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+          <p className="text-center text-slate-300 mb-6">
+            Please log in via the footer to access the admin dashboard.
+          </p>
+          <button
+            onClick={onClose}
+            className="w-full px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors text-white"
+          >
+            Close
+          </button>
         </div>
       </div>
     );
@@ -315,14 +290,21 @@ const AdminDashboard = ({ onClose }) => {
               <h1 className="text-3xl font-serif font-semibold text-white">
                 Admin Dashboard
               </h1>
-              <button
-                onClick={onClose}
-                className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors text-white"
-              >
-                Close
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleLogout}
+                  className="px-5 py-3 rounded-full border border-red-500/50 bg-red-500/20 hover:bg-red-500/30 transition-colors text-red-100"
+                >
+                  Logout
+                </button>
+                <button
+                  onClick={onClose}
+                  className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors text-white"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-
             <div className="flex gap-2">
               <button
                 onClick={() => {
@@ -357,7 +339,6 @@ const AdminDashboard = ({ onClose }) => {
               </button>
             </div>
           </div>
-
           {notification && (
             <div
               className={`mb-6 p-4 rounded-xl ${
@@ -369,7 +350,6 @@ const AdminDashboard = ({ onClose }) => {
               {notification.message}
             </div>
           )}
-
           {activeTab === "rooms" && (
             <>
               {!showForm && (
@@ -382,7 +362,6 @@ const AdminDashboard = ({ onClose }) => {
                   </button>
                 </div>
               )}
-
               {showForm && (
                 <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 backdrop-blur-lg shadow-2xl">
                   <h2 className="text-2xl font-serif font-semibold mb-6 text-white">
@@ -420,7 +399,6 @@ const AdminDashboard = ({ onClose }) => {
                         />
                       </div>
                     </div>
-
                     <div>
                       <label className="block text-sm font-semibold mb-2 text-white">
                         Description
@@ -434,7 +412,6 @@ const AdminDashboard = ({ onClose }) => {
                         required
                       />
                     </div>
-
                     <div>
                       <label className="block text-sm font-semibold mb-2 text-white">
                         Price
@@ -449,7 +426,6 @@ const AdminDashboard = ({ onClose }) => {
                         required
                       />
                     </div>
-
                     <div>
                       <label className="block text-sm font-semibold mb-2 text-white">
                         Image URLs
@@ -484,7 +460,6 @@ const AdminDashboard = ({ onClose }) => {
                         + Add Image
                       </button>
                     </div>
-
                     <div>
                       <label className="block text-sm font-semibold mb-2 text-white">
                         Amenities
@@ -525,7 +500,6 @@ const AdminDashboard = ({ onClose }) => {
                         + Add Amenity
                       </button>
                     </div>
-
                     <div className="flex gap-3 pt-4">
                       <button
                         type="submit"
@@ -549,7 +523,6 @@ const AdminDashboard = ({ onClose }) => {
                   </form>
                 </div>
               )}
-
               <div className="space-y-4">
                 {isLoading && rooms.length === 0 ? (
                   <div className="text-center py-12">
@@ -619,7 +592,6 @@ const AdminDashboard = ({ onClose }) => {
               </div>
             </>
           )}
-
           {activeTab === "payments" && (
             <div className="space-y-6">
               <div>
@@ -749,7 +721,6 @@ const AdminDashboard = ({ onClose }) => {
                   </div>
                 )}
               </div>
-
               <div>
                 <h2 className="text-2xl font-serif font-semibold mb-4 text-white">
                   ✅ Confirmed Bookings ({confirmedBookings.length})
