@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Hooks
 import { useRooms } from "./hooks/useRooms";
@@ -81,100 +81,95 @@ const VillaRoseResort = () => {
   };
 
   return (
-    <HelmetProvider>
-      <div className="min-h-screen bg-slate-900 text-slate-50">
-        {/* Metadata */}
-        <Helmet>
-          <title>Villa Rose Sea Breeze Resort | Surf, Relax & Mountains</title>
-          <meta
-            name="description"
-            content="Welcome to Villa Rose Sea Breeze Resort. A serene family-owned getaway for surf enthusiasts and beach lovers. Mountains, rolling waves, and calm mornings await."
-          />
-          <meta
-            name="keywords"
-            content="resort, sea breeze, surfing, vacation, villa rose, beach resort, family getaway"
-          />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://www.villarose-resort.com/" />
-          <meta property="og:title" content="Villa Rose Sea Breeze Resort" />
-          <meta
-            property="og:description"
-            content="Mountains • Rolling waves • Calm mornings. Book your stay at our cozy haven by the sea."
-          />
-          <meta property="og:image" content={hero} />
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta
-            property="twitter:url"
-            content="https://www.villarose-resort.com/"
-          />
-          <meta
-            property="twitter:title"
-            content="Villa Rose Sea Breeze Resort"
-          />
-          <meta
-            property="twitter:description"
-            content="Experience the perfect blend of relaxation and adventure just minutes from the beach."
-          />
-          <meta property="twitter:image" content={hero} />
-        </Helmet>
+    <div className="min-h-screen bg-slate-900 text-slate-50">
+      {/* Metadata */}
+      <title>Villa Rose Sea Breeze Resort | Surf, Relax & Mountains</title>
+      <meta
+        name="description"
+        content="Welcome to Villa Rose Sea Breeze Resort. A serene family-owned getaway for surf enthusiasts and beach lovers. Mountains, rolling waves, and calm mornings await."
+      />
+      <meta
+        name="keywords"
+        content="resort, sea breeze, surfing, vacation, villa rose, beach resort, family getaway"
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://www.villarose-resort.com/" />
+      <meta property="og:title" content="Villa Rose Sea Breeze Resort" />
+      <meta
+        property="og:description"
+        content="Mountains • Rolling waves • Calm mornings. Book your stay at our cozy haven by the sea."
+      />
+      <meta property="og:image" content={hero} />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta
+        property="twitter:url"
+        content="https://www.villarose-resort.com/"
+      />
+      <meta property="twitter:title" content="Villa Rose Sea Breeze Resort" />
+      <meta
+        property="twitter:description"
+        content="Experience the perfect blend of relaxation and adventure just minutes from the beach."
+      />
+      <meta property="twitter:image" content={hero} />
 
-        {/* Skip Link */}
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-slate-800 focus:rounded-lg"
-        >
-          Skip to content
-        </a>
+      {/* Skip Link */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-slate-800 focus:rounded-lg"
+      >
+        Skip to content
+      </a>
 
-        {/* Header/Hero */}
-        <Header
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          isLogoFloating={isLogoFloating}
-          isRulesOpen={isRulesOpen}
-          setIsRulesOpen={setIsRulesOpen}
-          onNavClick={handleNavClick}
-          onScrollToSection={scrollToSection}
-          onOpenBooking={() => setIsBookingModalOpen(true)}
-        />
+      <SpeedInsights />
 
-        {/* Main Content */}
-        <main id="main" className="py-9">
-          <GallerySection onImageClick={openLightbox} />
-          <RoomsSection rooms={rooms} onImageClick={openLightbox} />
-          <AboutSection />
-          <MapSection />
-          <ContactSection />
-        </main>
+      {/* Header/Hero */}
+      <Header
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        isLogoFloating={isLogoFloating}
+        isRulesOpen={isRulesOpen}
+        setIsRulesOpen={setIsRulesOpen}
+        onNavClick={handleNavClick}
+        onScrollToSection={scrollToSection}
+        onOpenBooking={() => setIsBookingModalOpen(true)}
+      />
 
-        {/* Footer */}
-        <Footer onAdminAccess={() => setIsAdminOpen(true)} />
+      {/* Main Content */}
+      <main id="main" className="py-9">
+        <GallerySection onImageClick={openLightbox} />
+        <RoomsSection rooms={rooms} onImageClick={openLightbox} />
+        <AboutSection />
+        <MapSection />
+        <ContactSection />
+      </main>
 
-        {/* Modals */}
-        <Lightbox
-          isOpen={lightbox.isOpen}
-          images={lightbox.images}
-          currentIndex={lightbox.index}
-          onClose={closeLightbox}
-          onNext={nextLightboxImage}
-          onPrev={prevLightboxImage}
-        />
+      {/* Footer */}
+      <Footer onAdminAccess={() => setIsAdminOpen(true)} />
 
-        <BookingModal
-          isOpen={isBookingModalOpen}
-          onClose={() => setIsBookingModalOpen(false)}
-          rooms={rooms}
-          bookingHook={bookingHook}
-        />
+      {/* Modals */}
+      <Lightbox
+        isOpen={lightbox.isOpen}
+        images={lightbox.images}
+        currentIndex={lightbox.index}
+        onClose={closeLightbox}
+        onNext={nextLightboxImage}
+        onPrev={prevLightboxImage}
+      />
 
-        <HouseRulesModal
-          isOpen={isRulesOpen}
-          onClose={() => setIsRulesOpen(false)}
-        />
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        rooms={rooms}
+        bookingHook={bookingHook}
+      />
 
-        {isAdminOpen && <AdminDashboard onClose={handleAdminClose} />}
-      </div>
-    </HelmetProvider>
+      <HouseRulesModal
+        isOpen={isRulesOpen}
+        onClose={() => setIsRulesOpen(false)}
+      />
+
+      {isAdminOpen && <AdminDashboard onClose={handleAdminClose} />}
+    </div>
   );
 };
 
