@@ -2,7 +2,6 @@ import React from "react";
 
 export default function RoomDetailsView({
   room,
-  roomKey,
   currentImageIndex,
   onBack,
   onNext,

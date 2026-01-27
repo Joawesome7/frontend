@@ -35,7 +35,7 @@ const VillaRoseResort = () => {
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
   // Custom Hooks
-  const { rooms, fetchRooms, isLoadingRooms } = useRooms();
+  const { rooms, fetchRooms } = useRooms();
   const {
     lightbox,
     openLightbox,
@@ -127,8 +127,6 @@ const VillaRoseResort = () => {
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         isLogoFloating={isLogoFloating}
-        isRulesOpen={isRulesOpen}
-        setIsRulesOpen={setIsRulesOpen}
         onNavClick={handleNavClick}
         onScrollToSection={scrollToSection}
         onOpenBooking={() => setIsBookingModalOpen(true)}

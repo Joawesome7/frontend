@@ -81,6 +81,7 @@ const AdminDashboard = ({ onClose }) => {
         fetchBookings();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, activeTab, adminToken]);
 
   const handleConfirmPayment = async (bookingId) => {

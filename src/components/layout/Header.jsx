@@ -6,8 +6,6 @@ export default function Header({
   isMenuOpen,
   setIsMenuOpen,
   isLogoFloating,
-  isRulesOpen,
-  setIsRulesOpen,
   onNavClick,
   onScrollToSection,
   onOpenBooking,
