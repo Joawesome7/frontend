@@ -50,14 +50,14 @@ export function useBooking() {
       } else {
         showNotification(
           data.message || "Failed to check availability",
-          "error"
+          "error",
         );
       }
     } catch (error) {
       console.error("Error checking availability:", error);
       showNotification(
         "Failed to connect to server. Please try again.",
-        "error"
+        "error",
       );
     } finally {
       setIsLoading(false);
@@ -116,7 +116,7 @@ export function useBooking() {
         showNotification(
           data.message ||
             "Booking confirmed! Check your email for payment instructions.",
-          "success"
+          "success",
         );
 
         // Show payment instructions
@@ -127,6 +127,8 @@ Booking Reference: ${data.bookingReference}
 
 Payment Instructions:
 Amount to Pay: ₱${data.paymentInstructions.depositAmount}
+MetroBank Number: ${data.paymentInstructions.metrobankNumber}
+MetroBank Name: ${data.paymentInstructions.metrobankName}
 GCash Number: ${data.paymentInstructions.gcashNumber}
 GCash Name: ${data.paymentInstructions.gcashName}
 
@@ -139,7 +141,7 @@ Please send proof of payment to confirm your booking.
         console.error("❌ Booking failed:", data);
         showNotification(
           data.error || data.details || "Failed to create booking",
-          "error"
+          "error",
         );
         return false;
       }
@@ -147,7 +149,7 @@ Please send proof of payment to confirm your booking.
       console.error("❌ Error creating booking:", error);
       showNotification(
         "Failed to connect to server. Please try again.",
-        "error"
+        "error",
       );
       return false;
     } finally {
