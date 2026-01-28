@@ -53,6 +53,8 @@ export default function RoomsSection({ rooms, onImageClick }) {
                   onImageClick(roomImages, roomCarousels[key]);
                 }}
                 loading="lazy"
+                width="800"
+                height="600"
               />
 
               {room.images.length > 1 && (

@@ -84,6 +84,7 @@ const VillaRoseResort = () => {
     <div className="min-h-screen bg-slate-900 text-slate-50">
       {/* Metadata */}
       <title>Villa Rose Sea Breeze Resort | Surf, Relax & Mountains</title>
+      <link rel="preload" as="image" href={hero} />
       <meta
         name="description"
         content="Welcome to Villa Rose Sea Breeze Resort. A serene family-owned getaway for surf enthusiasts and beach lovers. Mountains, rolling waves, and calm mornings await."

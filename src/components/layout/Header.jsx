@@ -52,6 +52,8 @@ export default function Header({
             className={`object-contain rounded-full ${
               isLogoFloating ? "h-10" : "h-20"
             }`}
+            width="80"
+            height="80"
             onError={(e) => (e.target.style.display = "none")}
           />
           <span

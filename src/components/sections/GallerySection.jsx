@@ -20,6 +20,8 @@ export default function GallerySection({ onImageClick }) {
               alt={img.alt}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
               loading="lazy"
+              width="800"
+              height="450"
             />
             <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/65 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
               <p className="text-white text-sm">{img.caption}</p>
