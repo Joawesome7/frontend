@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PaymentInstructionsModal from "./components/booking/PaymentInstructionsModal";
 
 export function useBooking() {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
