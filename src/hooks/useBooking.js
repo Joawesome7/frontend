@@ -1,6 +1,9 @@
 import { useState } from "react";
+import PaymentInstructionsModal from "./components/booking/PaymentInstructionsModal";
 
 export function useBooking() {
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [paymentInstructions, setPaymentInstructions] = useState(null);
   const [bookingFormData, setBookingFormData] = useState({
     checkIn: "",
     checkOut: "",
@@ -122,18 +125,31 @@ export function useBooking() {
         // Show payment instructions
         if (data.paymentInstructions) {
           console.log("💰 Payment Instructions:", data.paymentInstructions);
-          alert(`
-Booking Reference: ${data.bookingReference}
+          //           alert(`
+          // Booking Reference: ${data.bookingReference}
 
-Payment Instructions:
-Amount to Pay: ₱${data.paymentInstructions.depositAmount}
-MetroBank Number: ${data.paymentInstructions.metrobankNumber}
-MetroBank Name: ${data.paymentInstructions.metrobankName}
-GCash Number: ${data.paymentInstructions.gcashNumber}
-GCash Name: ${data.paymentInstructions.gcashName}
+          // Payment Instructions:
+          // Amount to Pay: ₱${data.paymentInstructions.depositAmount}
+          // MetroBank Number: ${data.paymentInstructions.metrobankNumber}
+          // MetroBank Name: ${data.paymentInstructions.metrobankName}
+          // GCash Number: ${data.paymentInstructions.gcashNumber}
+          // GCash Name: ${data.paymentInstructions.gcashName}
 
-Please send proof of payment to confirm your booking.
-          `);
+          // Please send proof of payment to confirm your booking.
+          //           `);
+
+          // Store payment data in state
+          setPaymentInstructions({
+            bookingReference: data.bookingReference,
+            depositAmount: data.paymentInstructions.depositAmount,
+            gcashNumber: data.paymentInstructions.gcashNumber,
+            gcashName: data.paymentInstructions.gcashName,
+            metrobankNumber: data.paymentInstructions.metrobankNumber,
+            metrobankName: data.paymentInstructions.metrobankName,
+          });
+
+          // Open the modal
+          setIsPaymentModalOpen(true);
         }
 
         return true; // Success
@@ -180,5 +196,8 @@ Please send proof of payment to confirm your booking.
     checkAvailability,
     submitBooking,
     resetBookingForm,
+    isPaymentModalOpen,
+    setIsPaymentModalOpen,
+    paymentInstructions,
   };
 }

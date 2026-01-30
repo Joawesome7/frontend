@@ -22,6 +22,7 @@ import Lightbox from "./components/gallery/Lightbox";
 import BookingModal from "./components/booking/BookingModal";
 import HouseRulesModal from "./components/HouseRulesModal";
 import AdminDashboard from "./components/AdminDashboard";
+import PaymentInstructionsModal from "./components/booking/PaymentInstructionsModal";
 
 // Assets
 import hero from "./assets/img/hero.jpg";
@@ -167,6 +168,12 @@ const VillaRoseResort = () => {
       <HouseRulesModal
         isOpen={isRulesOpen}
         onClose={() => setIsRulesOpen(false)}
+      />
+
+      <PaymentInstructionsModal
+        isOpen={bookingHook.isPaymentModalOpen}
+        onClose={() => bookingHook.setIsPaymentModalOpen(false)}
+        paymentData={bookingHook.paymentInstructions}
       />
 
       {isAdminOpen && <AdminDashboard onClose={handleAdminClose} />}
