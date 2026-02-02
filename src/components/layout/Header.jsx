@@ -157,7 +157,7 @@ export default function Header({
 
       {/* Decorative Wave */}
       <svg
-        className="absolute left-0 right-0 bottom-0 h-32 opacity-95 pointer-events-none"
+        className="absolute left-0 right-0 bottom-0 h-32 opacity-95 pointer-events-none w-full"
         viewBox="0 0 1440 160"
         preserveAspectRatio="none"
       >

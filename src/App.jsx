@@ -82,7 +82,14 @@ const VillaRoseResort = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-50">
+    <div className="min-h-screen bg-slate-900 text-slate-50 relative">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(3,7,18,0.35), rgba(3,7,18,0.6)), url(${hero})`,
+          filter: "contrast(0.98) saturate(1.03)",
+        }}
+      />
       {/* Metadata */}
       <title>Villa Rose Sea Breeze Resort | Surf, Relax & Mountains</title>
       <link rel="preload" as="image" href={hero} />
@@ -138,6 +145,7 @@ const VillaRoseResort = () => {
 
       {/* Main Content */}
       <main id="main" className="py-9">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/35 to-slate-900/55" />
         <GallerySection onImageClick={openLightbox} />
         <RoomsSection rooms={rooms} onImageClick={openLightbox} />
         <AboutSection />
