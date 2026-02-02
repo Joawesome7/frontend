@@ -124,20 +124,6 @@ export function useBooking() {
         // Show payment instructions
         if (data.paymentInstructions) {
           console.log("💰 Payment Instructions:", data.paymentInstructions);
-          //           alert(`
-          // Booking Reference: ${data.bookingReference}
-
-          // Payment Instructions:
-          // Amount to Pay: ₱${data.paymentInstructions.depositAmount}
-          // MetroBank Number: ${data.paymentInstructions.metrobankNumber}
-          // MetroBank Name: ${data.paymentInstructions.metrobankName}
-          // GCash Number: ${data.paymentInstructions.gcashNumber}
-          // GCash Name: ${data.paymentInstructions.gcashName}
-
-          // Please send proof of payment to confirm your booking.
-          //           `);
-
-          // Store payment data in state
           setPaymentInstructions({
             bookingReference: data.bookingReference,
             depositAmount: data.paymentInstructions.depositAmount,
