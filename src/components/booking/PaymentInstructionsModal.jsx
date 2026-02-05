@@ -103,7 +103,15 @@ export default function PaymentInstructionsModal({
           {/* Instructions */}
           <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
             <p className="text-sm text-yellow-200">
-              ⚠️ Please send proof of payment to confirm your booking.
+              ⚠️ Send proof of payment through any of below: Messenger of Villa
+              Rose:{" "}
+              <a href="https://www.facebook.com/profile.php?id=61583957159834">
+                Villa Rose
+              </a>
+              <p>Viber: 09123456789</p>
+              <a href="mailto:villaroseseabreeze@gmail.com">
+                villaroseseabreeze@gmail.com
+              </a>
             </p>
           </div>
         </div>
