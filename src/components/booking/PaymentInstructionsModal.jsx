@@ -108,7 +108,7 @@ export default function PaymentInstructionsModal({
               <a href="https://www.facebook.com/profile.php?id=61583957159834">
                 Villa Rose
               </a>
-              <p>Viber: 09123456789</p>
+              <p>Viber: 0917 169 5791</p>
               <a href="mailto:villaroseseabreeze@gmail.com">
                 villaroseseabreeze@gmail.com
               </a>
