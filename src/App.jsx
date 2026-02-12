@@ -26,6 +26,7 @@ import PaymentInstructionsModal from "./components/booking/PaymentInstructionsMo
 
 // Assets
 import hero from "./assets/img/hero.jpg";
+import logo from "./assets/img/logo.png";
 
 const VillaRoseResort = () => {
   // UI State
@@ -102,17 +103,17 @@ const VillaRoseResort = () => {
         content="resort, sea breeze, surfing, vacation, villa rose, beach resort, family getaway"
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://www.villarose-resort.com/" />
+      <meta property="og:url" content="https://www.villaroseseabreeze.com/" />
       <meta property="og:title" content="Villa Rose Sea Breeze Resort" />
       <meta
         property="og:description"
         content="Mountains • Rolling waves • Calm mornings. Book your stay at our cozy haven by the sea."
       />
-      <meta property="og:image" content={hero} />
+      <meta property="og:image" content={logo} />
       <meta property="twitter:card" content="summary_large_image" />
       <meta
         property="twitter:url"
-        content="https://www.villarose-resort.com/"
+        content="https://www.villaroseseabreeze.com/"
       />
       <meta property="twitter:title" content="Villa Rose Sea Breeze Resort" />
       <meta
@@ -139,7 +140,7 @@ const VillaRoseResort = () => {
         isRulesOpen={isRulesOpen}
         setIsRulesOpen={setIsRulesOpen}
         onNavClick={handleNavClick}
-        onScrollToSection={scrollToSection}
+        onScrollToSection={handleNavClick}
         onOpenBooking={() => setIsBookingModalOpen(true)}
       />
 

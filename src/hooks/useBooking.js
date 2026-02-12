@@ -112,7 +112,7 @@ export function useBooking() {
       });
 
       const data = await response.json();
-      console.log("📥 Server response:", data);
+      // console.log("📥 Server response:", data);
 
       if (response.ok) {
         showNotification(
@@ -123,7 +123,7 @@ export function useBooking() {
 
         // Show payment instructions
         if (data.paymentInstructions) {
-          console.log("💰 Payment Instructions:", data.paymentInstructions);
+          // console.log("💰 Payment Instructions:", data.paymentInstructions);
           setPaymentInstructions({
             bookingReference: data.bookingReference,
             depositAmount: data.paymentInstructions.depositAmount,

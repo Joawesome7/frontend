@@ -1,0 +1,197 @@
+/**
+ * SIMPLIFIED CALENDAR STYLES
+ * ===========================
+ * Clear visual distinction between available and unavailable dates
+ */
+
+/* Calendar container */
+.villa-rose-calendar {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  background: rgba(15, 23, 42, 0.95) !important;
+  font-family: inherit !important;
+  overflow: hidden;
+}
+
+/* Header */
+.react-datepicker__header {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding-top: 16px !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #f8fafc !important;
+  margin-bottom: 12px !important;
+}
+
+/* Day names */
+.react-datepicker__day-name {
+  color: #94a3b8 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  width: 40px !important;
+  line-height: 40px !important;
+  margin: 4px !important;
+}
+
+/* Navigation arrows */
+.react-datepicker__navigation {
+  top: 16px !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #94a3b8 !important;
+  border-width: 2px 2px 0 0 !important;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: #f8fafc !important;
+}
+
+/* Date cells */
+.react-datepicker__day {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  margin: 4px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  color: #f8fafc !important;
+  transition: all 0.2s !important;
+  background: transparent !important;
+}
+
+/* Available dates - hover effect */
+.react-datepicker__day:hover:not(.react-datepicker__day--disabled):not(
+    .react-datepicker__day--selected
+  ) {
+  background: rgba(34, 211, 238, 0.2) !important;
+  color: #22d3ee !important;
+}
+
+/* Selected date */
+.react-datepicker__day--selected {
+  background: linear-gradient(135deg, #22d3ee 0%, #14b8a6 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day--selected:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0d9488 100%) !important;
+}
+
+/* Today's date */
+.react-datepicker__day--today:not(.react-datepicker__day--selected) {
+  font-weight: 600 !important;
+  border: 2px solid #22d3ee !important;
+  background: transparent !important;
+}
+
+/* Outside current month */
+.react-datepicker__day--outside-month {
+  color: #475569 !important;
+  opacity: 0.5 !important;
+}
+
+/* ============================================
+   UNAVAILABLE DATES - CLEAR VISUAL FEEDBACK
+   ============================================ */
+
+/* Unavailable dates - RED and CROSSED OUT */
+.react-datepicker__day--disabled,
+.unavailable-date {
+  position: relative;
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+  text-decoration: line-through !important;
+  text-decoration-color: #ef4444 !important;
+  text-decoration-thickness: 2px !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+.react-datepicker__day--disabled:hover,
+.unavailable-date:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #ef4444 !important;
+}
+
+/* Add a small red dot indicator */
+.unavailable-date::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+/* Month container */
+.react-datepicker__month {
+  margin: 0.4rem !important;
+  background: transparent !important;
+}
+
+/* Week */
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    margin: 2px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Loading state */
+.calendar-loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Animation */
+.react-datepicker__month {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Focus indicators for accessibility */
+.react-datepicker__day:focus {
+  outline: 2px solid #22d3ee !important;
+  outline-offset: 2px !important;
+}
+
+/* Tooltip styling (optional - if you add tooltips) */
+.date-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.95);
+  color: #f8fafc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+}

@@ -33,7 +33,7 @@ export default function Header({
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/15 to-slate-900/55" />
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-slate-900/5 to-slate-900/55" /> */}
 
       {/* Top Navigation Bar */}
       <div className="absolute top-0 left-0 right-0 h-16 flex items-center mt-5 justify-between px-5 z-10">

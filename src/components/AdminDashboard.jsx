@@ -83,14 +83,45 @@ const AdminDashboard = ({ onClose }) => {
     }
   }, [isAuthenticated, activeTab, adminToken]);
 
-  const handleConfirmPayment = async (bookingId) => {
-    if (
-      !window.confirm(
-        "Are you sure you want to confirm this payment? This will send a confirmation email to the guest."
-      )
-    ) {
-      return;
-    }
+  // const handleConfirmPayment = async (bookingId) => {
+  //   if (
+  //     !window.confirm(
+  //       "Are you sure you want to confirm this payment? This will send a confirmation email to the guest."
+  //     )
+  //   ) {
+  //     return;
+  //   }
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await fetch(
+  //       `${API_URL}/bookings/${bookingId}/confirm-payment`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Authorization: `Bearer ${adminToken}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       showNotification(
+  //         "✅ Payment confirmed! Confirmation email sent to guest.",
+  //         "success"
+  //       );
+  //       fetchBookings();
+  //     } else {
+  //       showNotification(data.error || "Failed to confirm payment", "error");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error confirming payment:", error);
+  //     showNotification("Failed to connect to server", "error");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // Update the handleConfirmPayment function to accept paidAmount
+  const handleConfirmPayment = async (bookingId, paidAmount) => {
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -98,23 +129,31 @@ const AdminDashboard = ({ onClose }) => {
         {
           method: "POST",
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${adminToken}`,
           },
-        }
+          body: JSON.stringify({ paidAmount }), // Send the paid amount
+        },
       );
+
       const data = await response.json();
-      if (response.ok) {
-        showNotification(
-          "✅ Payment confirmed! Confirmation email sent to guest.",
-          "success"
-        );
-        fetchBookings();
-      } else {
-        showNotification(data.error || "Failed to confirm payment", "error");
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to confirm payment");
       }
+
+      alert(
+        `✅ ${data.message}\n\n` +
+          `Payment Type: ${data.paymentType === "full" ? "Full Payment" : "Deposit"}\n` +
+          `Amount Paid: ₱${data.paidAmount.toLocaleString()}\n` +
+          `Balance: ₱${data.balanceAmount.toLocaleString()}`,
+      );
+
+      // Refresh bookings
+      fetchBookings();
     } catch (error) {
       console.error("Error confirming payment:", error);
-      showNotification("Failed to connect to server", "error");
+      alert(`❌ Error: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -186,14 +225,14 @@ const AdminDashboard = ({ onClose }) => {
           editingRoom
             ? "Room updated successfully!"
             : "Room created successfully!",
-          "success"
+          "success",
         );
         resetForm();
         fetchRooms();
       } else {
         showNotification(
           data.error || data.errors?.[0]?.msg || "Failed to save room",
-          "error"
+          "error",
         );
       }
     } catch (error) {
@@ -275,10 +314,10 @@ const AdminDashboard = ({ onClose }) => {
   }
 
   const pendingBookings = bookings.filter(
-    (b) => b.payment_status === "pending"
+    (b) => b.payment_status === "pending",
   );
   const confirmedBookings = bookings.filter(
-    (b) => b.payment_status === "confirmed"
+    (b) => b.payment_status === "confirmed",
   );
 
   return (
@@ -297,12 +336,12 @@ const AdminDashboard = ({ onClose }) => {
                 >
                   Logout
                 </button>
-                <button
+                {/* <button
                   onClick={onClose}
                   className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors text-white"
                 >
                   Close
-                </button>
+                </button> */}
               </div>
             </div>
             <div className="flex gap-2">
@@ -473,7 +512,7 @@ const AdminDashboard = ({ onClose }) => {
                               handleArrayChange(
                                 "amenities",
                                 index,
-                                e.target.value
+                                e.target.value,
                               )
                             }
                             className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-cyan-400 focus:outline-none transition-colors text-white"
@@ -509,8 +548,8 @@ const AdminDashboard = ({ onClose }) => {
                         {isLoading
                           ? "Saving..."
                           : editingRoom
-                          ? "Update Room"
-                          : "Create Room"}
+                            ? "Update Room"
+                            : "Create Room"}
                       </button>
                       <button
                         type="button"
@@ -598,125 +637,20 @@ const AdminDashboard = ({ onClose }) => {
                 <h2 className="text-2xl font-serif font-semibold mb-4 text-white">
                   ⏳ Pending Payments ({pendingBookings.length})
                 </h2>
+
                 {pendingBookings.length === 0 ? (
-                  <div className="text-center py-12 p-6 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20">
-                    <p className="text-slate-400">No pending payments</p>
+                  <div className="text-center py-12">
+                    <p>No pending payments</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {pendingBookings.map((booking) => (
-                      <div
+                      <PendingPaymentCard
                         key={booking.id}
-                        className="p-6 rounded-2xl bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-500/30 backdrop-blur-lg shadow-xl"
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-3">
-                              <h3 className="text-xl font-semibold text-white">
-                                {booking.guest_name}
-                              </h3>
-                              <span className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-100 text-sm font-semibold">
-                                PENDING
-                              </span>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Guest Email
-                                </p>
-                                <p className="text-slate-200">
-                                  {booking.guest_email}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Guest Phone
-                                </p>
-                                <p className="text-slate-200">
-                                  {booking.guest_phone}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Room Type
-                                </p>
-                                <p className="text-slate-200 capitalize">
-                                  {booking.room_type}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">Guests</p>
-                                <p className="text-slate-200">
-                                  {booking.guests_count} guest(s)
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Check-in
-                                </p>
-                                <p className="text-slate-200">
-                                  {new Date(
-                                    booking.check_in
-                                  ).toLocaleDateString()}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Check-out
-                                </p>
-                                <p className="text-slate-200">
-                                  {new Date(
-                                    booking.check_out
-                                  ).toLocaleDateString()}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex gap-6 p-4 rounded-xl bg-white/5 border border-white/10">
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Total Amount
-                                </p>
-                                <p className="text-lg font-semibold text-cyan-400">
-                                  ₱{booking.total_amount?.toLocaleString()}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-slate-400">
-                                  Deposit Required (50%)
-                                </p>
-                                <p className="text-lg font-semibold text-yellow-400">
-                                  ₱{booking.deposit_amount?.toLocaleString()}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="mt-4">
-                              <p className="text-sm text-slate-400">
-                                Booking Reference
-                              </p>
-                              <code className="text-lg font-mono bg-white/5 px-3 py-1 rounded text-white">
-                                {booking.booking_reference}
-                              </code>
-                            </div>
-                            {booking.special_requests && (
-                              <div className="mt-4">
-                                <p className="text-sm text-slate-400">
-                                  Special Requests
-                                </p>
-                                <p className="text-slate-200">
-                                  {booking.special_requests}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                          <button
-                            onClick={() => handleConfirmPayment(booking.id)}
-                            disabled={isLoading}
-                            className="ml-4 px-6 py-3 rounded-xl bg-gradient-to-r from-green-400 to-emerald-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            ✓ Confirm Payment
-                          </button>
-                        </div>
-                      </div>
+                        booking={booking}
+                        onConfirmPayment={handleConfirmPayment}
+                        isLoading={isLoading}
+                      />
                     ))}
                   </div>
                 )}
@@ -761,11 +695,11 @@ const AdminDashboard = ({ onClose }) => {
                                 </p>
                                 <p className="text-slate-200">
                                   {new Date(
-                                    booking.check_in
+                                    booking.check_in,
                                   ).toLocaleDateString()}{" "}
                                   →{" "}
                                   {new Date(
-                                    booking.check_out
+                                    booking.check_out,
                                   ).toLocaleDateString()}
                                 </p>
                               </div>
@@ -800,5 +734,244 @@ const AdminDashboard = ({ onClose }) => {
     </div>
   );
 };
+
+// Separate Component for Pending Payment Card
+function PendingPaymentCard({ booking, onConfirmPayment, isLoading }) {
+  const [paymentType, setPaymentType] = useState("deposit"); // "deposit" or "full"
+  const [customAmount, setCustomAmount] = useState("");
+  const [showCustomInput, setShowCustomInput] = useState(false);
+
+  const depositAmount = booking.deposit_amount || 0;
+  const totalAmount = booking.total_amount || 0;
+  const balanceAmount = totalAmount - depositAmount;
+
+  const handleConfirm = () => {
+    let paidAmount;
+
+    if (showCustomInput) {
+      paidAmount = parseFloat(customAmount) || depositAmount;
+    } else if (paymentType === "full") {
+      paidAmount = totalAmount;
+    } else {
+      paidAmount = depositAmount;
+    }
+
+    onConfirmPayment(booking.id, paidAmount);
+  };
+
+  return (
+    <div className="p-6 rounded-2xl bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-500/30 backdrop-blur-lg shadow-xl">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-3">
+            <h3 className="text-xl font-semibold text-white">
+              {booking.guest_name}
+            </h3>
+            <span className="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-100 text-sm font-semibold">
+              PENDING
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-sm text-slate-400">Guest Email</p>
+              <p className="text-slate-200">{booking.guest_email}</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Guest Phone</p>
+              <p className="text-slate-200">{booking.guest_phone}</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Room Type</p>
+              <p className="text-slate-200 capitalize">{booking.room_type}</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Guests</p>
+              <p className="text-slate-200">{booking.guests_count} guest(s)</p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Check-in</p>
+              <p className="text-slate-200">
+                {new Date(booking.check_in).toLocaleDateString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Check-out</p>
+              <p className="text-slate-200">
+                {new Date(booking.check_out).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-6 p-4 rounded-xl bg-white/5 border border-white/10 mb-4">
+            <div>
+              <p className="text-sm text-slate-400">Total Amount</p>
+              <p className="text-lg font-semibold text-cyan-400">
+                ₱{totalAmount.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Deposit (50%)</p>
+              <p className="text-lg font-semibold text-yellow-400">
+                ₱{depositAmount.toLocaleString()}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Balance</p>
+              <p className="text-lg font-semibold text-orange-400">
+                ₱{balanceAmount.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          {/* Payment Type Selection */}
+          <div className="p-4 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 mb-4">
+            <p className="text-sm text-slate-300 font-semibold mb-3">
+              💰 Payment Received:
+            </p>
+
+            <div className="space-y-2 mb-3">
+              <label className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
+                <input
+                  type="radio"
+                  name={`payment-type-${booking.id}`}
+                  value="deposit"
+                  checked={paymentType === "deposit" && !showCustomInput}
+                  onChange={() => {
+                    setPaymentType("deposit");
+                    setShowCustomInput(false);
+                  }}
+                  className="w-4 h-4 text-yellow-500"
+                />
+                <div className="flex-1">
+                  <span className="text-white font-medium">
+                    Deposit Only (50%)
+                  </span>
+                  <span className="text-yellow-400 font-bold ml-2">
+                    ₱{depositAmount.toLocaleString()}
+                  </span>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
+                <input
+                  type="radio"
+                  name={`payment-type-${booking.id}`}
+                  value="full"
+                  checked={paymentType === "full" && !showCustomInput}
+                  onChange={() => {
+                    setPaymentType("full");
+                    setShowCustomInput(false);
+                  }}
+                  className="w-4 h-4 text-green-500"
+                />
+                <div className="flex-1">
+                  <span className="text-white font-medium">
+                    Full Payment (100%)
+                  </span>
+                  <span className="text-green-400 font-bold ml-2">
+                    ₱{totalAmount.toLocaleString()}
+                  </span>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
+                <input
+                  type="radio"
+                  name={`payment-type-${booking.id}`}
+                  value="custom"
+                  checked={showCustomInput}
+                  onChange={() => setShowCustomInput(true)}
+                  className="w-4 h-4 text-cyan-500"
+                />
+                <div className="flex-1">
+                  <span className="text-white font-medium">Custom Amount</span>
+                </div>
+              </label>
+            </div>
+
+            {showCustomInput && (
+              <div className="mt-3">
+                <label className="block text-sm text-slate-300 mb-2">
+                  Enter Amount Paid (₱)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max={totalAmount}
+                  step="100"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  placeholder={`e.g., ${depositAmount}`}
+                  className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                />
+                <p className="text-xs text-slate-400 mt-1">
+                  Enter the exact amount the guest paid
+                </p>
+              </div>
+            )}
+
+            {/* Payment Summary */}
+            <div className="mt-4 p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-slate-300">
+                  Amount to Confirm:
+                </span>
+                <span className="text-lg font-bold text-cyan-300">
+                  ₱
+                  {showCustomInput
+                    ? (parseFloat(customAmount) || 0).toLocaleString()
+                    : paymentType === "full"
+                      ? totalAmount.toLocaleString()
+                      : depositAmount.toLocaleString()}
+                </span>
+              </div>
+              {(!showCustomInput || customAmount) && (
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-sm text-slate-400">
+                    Remaining Balance:
+                  </span>
+                  <span className="text-sm font-semibold text-orange-300">
+                    ₱
+                    {showCustomInput
+                      ? Math.max(
+                          0,
+                          totalAmount - (parseFloat(customAmount) || 0),
+                        ).toLocaleString()
+                      : paymentType === "full"
+                        ? "0"
+                        : balanceAmount.toLocaleString()}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-sm text-slate-400">Booking Reference</p>
+            <code className="text-lg font-mono bg-white/5 px-3 py-1 rounded text-white">
+              {booking.booking_reference}
+            </code>
+          </div>
+
+          {booking.special_requests && (
+            <div className="mt-4">
+              <p className="text-sm text-slate-400">Special Requests</p>
+              <p className="text-slate-200">{booking.special_requests}</p>
+            </div>
+          )}
+        </div>
+
+        <button
+          onClick={handleConfirm}
+          disabled={isLoading || (showCustomInput && !customAmount)}
+          className="ml-4 px-6 py-3 rounded-xl bg-gradient-to-r from-green-400 to-emerald-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+        >
+          ✓ Confirm Payment
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default AdminDashboard;
