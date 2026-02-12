@@ -10,7 +10,7 @@ export function useRooms() {
   const fetchRooms = async () => {
     setIsLoadingRooms(true);
     try {
-      const response = await fetch(`${API_URL}/api/rooms`);
+      const response = await fetch(`${API_URL}/rooms`);
       const data = await response.json();
 
       if (response.ok && data.rooms && data.rooms.length > 0) {
