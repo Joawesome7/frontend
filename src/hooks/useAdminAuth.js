@@ -4,12 +4,12 @@ export function useAdminAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   const login = async (password) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/admin/login`, {
+      const response = await fetch(`${API_URL}/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

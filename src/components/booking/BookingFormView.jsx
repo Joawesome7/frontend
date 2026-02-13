@@ -47,6 +47,10 @@ export default function BookingFormView({
     error: availabilityError,
   } = useAvailability(room?.key, fetchStart, fetchEnd);
 
+  // ADD THESE LINES:
+  // console.log("🔍 Room key:", room?.key);
+  // console.log("📦 Unavailable dates:", unavailableDates);
+
   // DEBUG: Log what we're getting from API
   // console.log("🔍 Debug Info:");
   // console.log("Room key:", room?.key);

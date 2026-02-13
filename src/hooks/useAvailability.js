@@ -8,6 +8,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+const ROOM_KEY_MAPPING = {
+  couple: "deluxe_ground",
+  family: "family_basement", // ← Converts "family" to "family_basement"
+  bungalow: "executive_2nd",
+};
+
 export const useAvailability = (roomType, startDate, endDate, options = {}) => {
   const {
     enabled = true,
@@ -36,13 +42,23 @@ export const useAvailability = (roomType, startDate, endDate, options = {}) => {
         return date.toISOString().split("T")[0];
       };
 
+      const mappedRoomType = ROOM_KEY_MAPPING[roomType] || roomType;
+
       const params = new URLSearchParams({
-        roomType,
+        roomType: mappedRoomType,
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
       });
 
       const url = `${API_URL}/availability/unavailable-dates?${params}`;
+
+      // console.log(
+      //   "🔍 Fetching availability for:",
+      //   roomType,
+      //   "→",
+      //   mappedRoomType,
+      // );
+      // console.log("📡 URL:", url);
 
       const response = await fetch(url, {
         method: "GET",
