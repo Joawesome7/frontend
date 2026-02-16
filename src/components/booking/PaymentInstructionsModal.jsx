@@ -157,7 +157,7 @@ export default function PaymentInstructionsModal({
         <div className="text-center mb-6">
           <div className="text-4xl mb-2">🎉</div>
           <h2 className="text-2xl font-bold text-white mb-2">
-            Booking Created Successfully!
+            Awaiting Booking Payment
           </h2>
           <p className="text-slate-300 text-sm">
             Reference:{" "}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 const AdminDashboard = ({ onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -82,43 +83,6 @@ const AdminDashboard = ({ onClose }) => {
       }
     }
   }, [isAuthenticated, activeTab, adminToken]);
-
-  // const handleConfirmPayment = async (bookingId) => {
-  //   if (
-  //     !window.confirm(
-  //       "Are you sure you want to confirm this payment? This will send a confirmation email to the guest."
-  //     )
-  //   ) {
-  //     return;
-  //   }
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await fetch(
-  //       `${API_URL}/bookings/${bookingId}/confirm-payment`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Authorization: `Bearer ${adminToken}`,
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       showNotification(
-  //         "✅ Payment confirmed! Confirmation email sent to guest.",
-  //         "success"
-  //       );
-  //       fetchBookings();
-  //     } else {
-  //       showNotification(data.error || "Failed to confirm payment", "error");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error confirming payment:", error);
-  //     showNotification("Failed to connect to server", "error");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   // Update the handleConfirmPayment function to accept paidAmount
   const handleConfirmPayment = async (bookingId, paidAmount) => {
@@ -744,6 +708,9 @@ function PendingPaymentCard({ booking, onConfirmPayment, isLoading }) {
   const depositAmount = booking.deposit_amount || 0;
   const totalAmount = booking.total_amount || 0;
   const balanceAmount = totalAmount - depositAmount;
+  const rawDate = booking.created_at;
+  const date = new Date(rawDate);
+  const formatted = format(date, "MMM dd, yyyy hh:mm a");
 
   const handleConfirm = () => {
     let paidAmount;
@@ -800,6 +767,10 @@ function PendingPaymentCard({ booking, onConfirmPayment, isLoading }) {
               <p className="text-slate-200">
                 {new Date(booking.check_out).toLocaleDateString()}
               </p>
+            </div>
+            <div>
+              <p className="text-sm text-slate-400">Created At</p>
+              <p className="text-sm text-slate-200">{formatted}</p>
             </div>
           </div>
 
