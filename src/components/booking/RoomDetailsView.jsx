@@ -31,12 +31,14 @@ export default function RoomDetailsView({
             {room.images.length > 1 && (
               <>
                 <button
+                  type="button"
                   onClick={onPrev}
                   className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
                 >
                   ◀
                 </button>
                 <button
+                  type="button"
                   onClick={onNext}
                   className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
                 >
