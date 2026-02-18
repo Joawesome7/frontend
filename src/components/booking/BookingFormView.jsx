@@ -131,6 +131,8 @@ export default function BookingFormView({
         checkIn: dateStr,
         checkOut: "", // Reset checkout
       });
+      // Sync the calendar view to the month just picked
+      setCurrentMonth(date);
     } else {
       setBookingFormData({
         ...bookingFormData,
@@ -202,6 +204,11 @@ export default function BookingFormView({
             selected={checkInDate}
             onChange={handleCheckInChange}
             onMonthChange={setCurrentMonth}
+            // This prevents the calendar from jumping back to the 'selected' month
+            // When the component re-renders due to a state change.
+            focusSelectedMonth={false}
+            // use currentMonth to tell the picker where to stay
+            openToDate={currentMonth}
             filterDate={filterCheckInDate}
             minDate={new Date()}
             placeholderText="Select check-in date"
@@ -220,7 +227,6 @@ export default function BookingFormView({
             Red/strikethrough dates are fully booked
           </p>
         </div>
-
         {/* Check-out Date */}
         <div>
           <label className="block text-sm font-semibold mb-2">
@@ -257,8 +263,7 @@ export default function BookingFormView({
               : "Red/strikethrough dates are fully booked"}
           </p>
         </div>
-
-        {/* Legend
+        {/* Legend */}
         <div className="md:col-span-2 flex gap-4 text-xs text-slate-300 bg-white/5 p-3 rounded-lg">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-cyan-400 rounded-full"></div>
@@ -268,8 +273,7 @@ export default function BookingFormView({
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <span>Fully booked</span>
           </div>
-        </div> */}
-
+        </div>
         {/* Number of Guests */}
         <div>
           <label className="block text-sm font-semibold mb-2">
@@ -290,7 +294,6 @@ export default function BookingFormView({
             className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
           />
         </div>
-
         {/* Availability Check Button */}
         <div className="flex items-end">
           <button
@@ -304,7 +307,6 @@ export default function BookingFormView({
             {isLoading ? "Checking..." : "Check Availability"}
           </button>
         </div>
-
         {/* Availability Status */}
         {availabilityStatus && (
           <div
@@ -317,7 +319,6 @@ export default function BookingFormView({
             {availabilityStatus.message}
           </div>
         )}
-
         {/* Guest Name */}
         <div>
           <label className="block text-sm font-semibold mb-2">
@@ -337,7 +338,6 @@ export default function BookingFormView({
             placeholder="John Doe"
           />
         </div>
-
         {/* Guest Email */}
         <div>
           <label className="block text-sm font-semibold mb-2">
@@ -357,7 +357,6 @@ export default function BookingFormView({
             placeholder="john@example.com"
           />
         </div>
-
         {/* Guest Phone */}
         <div className="md:col-span-2">
           <label className="block text-sm font-semibold mb-2">
@@ -377,7 +376,6 @@ export default function BookingFormView({
             placeholder="+63 912 345 6789"
           />
         </div>
-
         {/* Special Requests */}
         <div className="md:col-span-2">
           <label className="block text-sm font-semibold mb-2">
@@ -396,7 +394,6 @@ export default function BookingFormView({
             placeholder="Any special requests or requirements..."
           />
         </div>
-
         {/* Submit Button */}
         <div className="md:col-span-2">
           <button

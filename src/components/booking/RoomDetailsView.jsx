@@ -24,7 +24,7 @@ export default function RoomDetailsView({
         <div>
           <div className="relative rounded-2xl overflow-hidden mb-4">
             <img
-              src={room.images[currentImageIndex]}
+              src={room.images[currentImageIndex || 0]}
               alt={room.title}
               className="w-full h-96 object-cover"
             />
@@ -43,7 +43,7 @@ export default function RoomDetailsView({
                   ▶
                 </button>
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/50 text-white text-sm">
-                  {currentImageIndex + 1} / {room.images.length}
+                  {(currentImageIndex || 0) + 1} / {room.images.length}
                 </div>
               </>
             )}
