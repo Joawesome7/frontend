@@ -53,7 +53,6 @@ export default function Footer({ onAdminAccess }) {
           <p
             className="text-slate-300 text-sm cursor-pointer select-none"
             onDoubleClick={handleDoubleClick}
-            title="Double-click for admin access"
           >
             © {new Date().getFullYear()} Villa Rose Sea Breeze Resort — All
             rights reserved.

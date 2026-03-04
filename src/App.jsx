@@ -19,6 +19,7 @@ import ContactSection from "./components/sections/ContactSection";
 
 // Modal Components
 import Lightbox from "./components/gallery/Lightbox";
+// import AprilDiscountPop from "./components/gallery/AprilDiscountPop";
 import BookingModal from "./components/booking/BookingModal";
 import HouseRulesModal from "./components/HouseRulesModal";
 import AdminDashboard from "./components/AdminDashboard";
@@ -152,6 +153,7 @@ const VillaRoseResort = () => {
         <AboutSection />
         <MapSection />
         <ContactSection />
+        {/* <AprilDiscountPop /> */}
       </main>
 
       {/* Footer */}

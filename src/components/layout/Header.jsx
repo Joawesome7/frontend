@@ -36,39 +36,42 @@ export default function Header({
       {/* <div className="absolute inset-0 bg-gradient-to-b from-slate-900/5 to-slate-900/55" /> */}
 
       {/* Top Navigation Bar */}
-      <div className="absolute top-0 left-0 right-0 h-16 flex items-center mt-5 justify-between px-5 z-10">
-        {/* Logo */}
+      <div className="absolute top-0 left-0 right-0 flex items-center mt-3 sm:mt-5 justify-between px-4 sm:px-5 z-[60]">
+        {/* Logo Area */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className={`flex items-center gap-3 transition-all duration-200 ${
+          className={`flex items-center gap-2 sm:gap-3 transition-all duration-200 ${
             isLogoFloating
-              ? "fixed top-5 left-5 z-[99999] bg-white/5 px-3 py-2 rounded-full shadow-2xl backdrop-blur-sm"
+              ? "fixed top-4 sm:top-5 left-4 sm:left-5 z-[99999] bg-white/5 sm:px-3 py-1 sm:py-2 rounded-full shadow-2xl backdrop-blur-sm"
               : ""
           }`}
         >
+          {/* 2. Scaled the logo image down slightly for mobile */}
           <img
             src={logo}
             alt="Villa Rose logo"
             className={`object-contain rounded-full ${
-              isLogoFloating ? "h-10" : "h-20"
+              isLogoFloating ? "h-8 sm:h-10" : "h-10 sm:h-20"
             }`}
             width="80"
             height="80"
             onError={(e) => (e.target.style.display = "none")}
           />
+          {/* 3. Handled long title text to prevent menu overlap on small screens */}
           <span
-            className={`font-bold font-serif ${
+            className={`font-bold font-serif text-sm sm:text-base text-left text-white leading-tight max-w-[140px] sm:max-w-none ${
               isLogoFloating ? "hidden" : "block"
             }`}
           >
-            Villa Rose Sea Breeze Resort
+            Villa Rose{" "}
+            <span className="hidden sm:inline">Sea Breeze Resort</span>
           </span>
         </button>
 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-slate-50"
+          className="md:hidden text-white p-2 shrink-0"
           aria-label="Toggle navigation"
         >
           {isMenuOpen ? (
@@ -100,12 +103,12 @@ export default function Header({
         </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-3">
+        <nav className="hidden md:flex items-center gap-1 lg:gap-3">
           {navItems.map((item) => (
             <button
               key={item}
               onClick={() => onNavClick(item)}
-              className="px-3 py-2 rounded-2xl font-semibold uppercase hover:bg-white/5 text-white transition-colors"
+              className="px-2 lg:px-3 py-2 rounded-2xl text-sm lg:text-base font-semibold uppercase hover:bg-white/5 text-white transition-colors"
             >
               {item}
             </button>
@@ -114,9 +117,10 @@ export default function Header({
       </div>
 
       {/* Mobile Navigation */}
+      {/* 4. Increased z-index and fixed top positioning to prevent overlapping the header */}
       {isMenuOpen && (
-        <nav className="md:hidden absolute top-16 left-0 right-0 bg-slate-900/95 backdrop-blur-lg z-20 p-5">
-          <ul className="space-y-2">
+        <nav className="md:hidden absolute top-[70px] left-0 right-0 bg-slate-900/95 backdrop-blur-lg z-50 p-4 border-b border-white/20 shadow-2xl">
+          <ul className="space-y-1">
             {navItems.map((item) => (
               <li key={item}>
                 <button
@@ -132,23 +136,25 @@ export default function Header({
       )}
 
       {/* Hero Content */}
-      <div className="relative z-10 w-[calc(100%-40px)] max-w-4xl mx-5 my-5 p-9 rounded-2xl bg-gradient-to-br from-white/6 to-white/2 border border-white/10 backdrop-blur-lg shadow-2xl text-center">
-        <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-2">
+      {/* 5. Reduced padding on mobile and adjusted text sizes */}
+      <div className="relative z-10 w-[calc(100%-32px)] sm:w-[calc(100%-40px)] max-w-4xl mx-4 sm:mx-5 my-5 p-6 sm:p-9 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 backdrop-blur-md shadow-2xl text-center mt-12 sm:mt-0">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold mb-3 text-white leading-tight">
           Villa Rose Sea Breeze Resort
         </h1>
-        <p className="text-slate-200 mb-4">
+        <p className="text-slate-200 mb-6 text-sm sm:text-base">
           Mountains • Rolling waves • Calm mornings
         </p>
-        <div className="flex gap-3 justify-center flex-wrap">
+        {/* 6. Stacked buttons vertically on mobile */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
           <button
             onClick={onOpenBooking}
-            className="px-5 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
+            className="w-full sm:w-auto px-6 py-3 sm:py-4 rounded-full bg-gradient-to-r from-cyan-400 to-teal-600 text-white font-bold shadow-lg hover:-translate-y-1 transition-transform"
           >
             Book Now
           </button>
           <button
             onClick={() => onScrollToSection("gallery")}
-            className="px-5 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors"
+            className="w-full sm:w-auto px-6 py-3 sm:py-4 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors"
           >
             View Gallery
           </button>
@@ -157,7 +163,7 @@ export default function Header({
 
       {/* Decorative Wave */}
       <svg
-        className="absolute left-0 right-0 bottom-0 h-32 opacity-95 pointer-events-none w-full"
+        className="absolute left-0 right-0 bottom-0 h-20 md:h-32 opacity-95 pointer-events-none w-full"
         viewBox="0 0 1440 160"
         preserveAspectRatio="none"
       >

@@ -58,10 +58,6 @@ export default function BookingModal({ isOpen, onClose, rooms, bookingHook }) {
         [roomKey]: (currentIndex + 1) % totalImages,
       };
     });
-    // setRoomCarousels((prev) => ({
-    //   ...prev,
-    //   [roomKey]: (prev[roomKey] + 1) % rooms[roomKey].images.length,
-    // }));
   };
 
   const prevRoomImage = (roomKey) => {
@@ -75,12 +71,6 @@ export default function BookingModal({ isOpen, onClose, rooms, bookingHook }) {
         [roomKey]: (currentIndex - 1 + totalImages) % totalImages,
       };
     });
-    // setRoomCarousels((prev) => ({
-    //   ...prev,
-    //   [roomKey]:
-    //     (prev[roomKey] - 1 + rooms[roomKey].images.length) %
-    //     rooms[roomKey].images.length,
-    // }));
   };
 
   return (
