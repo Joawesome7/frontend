@@ -36,13 +36,13 @@ export default function Header({
       {/* <div className="absolute inset-0 bg-gradient-to-b from-slate-900/5 to-slate-900/55" /> */}
 
       {/* Top Navigation Bar */}
-      <div className="absolute top-0 left-0 right-0 flex items-center mt-3 sm:mt-5 justify-between px-4 sm:px-5 z-[60]">
+      <div className="absolute top-0 left-0 right-0 flex items-center mt-3 sm:mt-5 justify-between px-4 sm:px-5 z-40">
         {/* Logo Area */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className={`flex items-center gap-2 sm:gap-3 transition-all duration-200 ${
             isLogoFloating
-              ? "fixed top-4 sm:top-5 left-4 sm:left-5 z-[99999] bg-white/5 sm:px-3 py-1 sm:py-2 rounded-full shadow-2xl backdrop-blur-sm"
+              ? "fixed top-4 sm:top-5 left-4 sm:left-5 z-50 bg-white/5 sm:px-3 py-1 sm:py-2 rounded-full shadow-2xl backdrop-blur-sm"
               : ""
           }`}
         >
