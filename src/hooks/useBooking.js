@@ -127,6 +127,10 @@ export function useBooking() {
           setPaymentInstructions({
             bookingReference: data.bookingReference,
             depositAmount: data.paymentInstructions.depositAmount,
+            totalAmount: data.paymentInstructions.totalAmount,
+            originalAmount: data.paymentInstructions.originalAmount,
+            discountAmount: data.paymentInstructions.discountAmount,
+            discountName: data.paymentInstructions.discountName,
             gcashNumber: data.paymentInstructions.gcashNumber,
             gcashName: data.paymentInstructions.gcashName,
             metrobankNumber: data.paymentInstructions.metrobankNumber,

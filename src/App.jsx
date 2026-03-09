@@ -19,7 +19,7 @@ import ContactSection from "./components/sections/ContactSection";
 
 // Modal Components
 import Lightbox from "./components/gallery/Lightbox";
-// import AprilDiscountPop from "./components/gallery/AprilDiscountPop";
+import AprilDiscountPop from "./components/gallery/AprilDiscountPop";
 import BookingModal from "./components/booking/BookingModal";
 import HouseRulesModal from "./components/HouseRulesModal";
 import AdminDashboard from "./components/AdminDashboard";
@@ -36,6 +36,8 @@ const VillaRoseResort = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isRulesOpen, setIsRulesOpen] = useState(false);
+  const isApril = new Date().getMonth() === 3;
+  const [isDiscountPopOpen, setIsDiscountPopOpen] = useState(isApril);
 
   // Custom Hooks
   const { rooms, fetchRooms, isLoadingRooms } = useRooms();
@@ -153,7 +155,10 @@ const VillaRoseResort = () => {
         <AboutSection />
         <MapSection />
         <ContactSection />
-        {/* <AprilDiscountPop /> */}
+        <AprilDiscountPop
+          isOpen={isDiscountPopOpen}
+          onClose={() => setIsDiscountPopOpen(false)}
+        />
       </main>
 
       {/* Footer */}

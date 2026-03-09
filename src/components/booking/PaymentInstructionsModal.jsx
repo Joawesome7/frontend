@@ -17,6 +17,10 @@ export default function PaymentInstructionsModal({
   // Calculate amounts
   const depositAmount = paymentData.depositAmount || 0;
   const totalAmount = paymentData.totalAmount || depositAmount * 2;
+  const originalAmount = paymentData.originalAmount || totalAmount;
+  const discountAmount = paymentData.discountAmount || 0;
+  const discountName = paymentData.discountName || null;
+  const hasDiscount = discountAmount > 0 && discountName;
   const displayAmount =
     selectedPaymentType === "full" ? totalAmount : depositAmount;
 
@@ -36,6 +40,40 @@ export default function PaymentInstructionsModal({
             </span>
           </p>
         </div>
+
+        {/* Discount Summary — only shows if a discount was applied */}
+        {hasDiscount && (
+          <div className="mb-6 bg-green-500/10 border border-green-500/30 rounded-xl p-4">
+            <p className="text-xs font-semibold text-green-400 uppercase tracking-wider mb-3">
+              🏷️ Discount Applied
+            </p>
+
+            <div className="flex justify-between text-sm text-slate-300 mb-1">
+              <span>Original Price</span>
+              <span className="line-through text-slate-500">
+                ₱{originalAmount.toLocaleString()}
+              </span>
+            </div>
+
+            <div className="flex justify-between text-sm text-green-400 mb-1">
+              <span>{discountName}</span>
+              <span>− ₱{discountAmount.toLocaleString()}</span>
+            </div>
+
+            <div className="border-t border-green-500/20 my-2" />
+
+            <div className="flex justify-between font-bold text-white">
+              <span>Final Total</span>
+              <span className="text-cyan-400">
+                ₱{totalAmount.toLocaleString()}
+              </span>
+            </div>
+
+            <div className="mt-2 text-center text-green-400 text-xs font-semibold">
+              🎉 You saved ₱{discountAmount.toLocaleString()}!
+            </div>
+          </div>
+        )}
 
         {/* Payment Type Selection */}
         <div className="mb-6">

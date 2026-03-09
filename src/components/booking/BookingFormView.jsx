@@ -12,6 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAvailability } from "../../hooks/useAvailability.js";
 import "../../components/AvailabilityDatePicker.css";
+import { useDiscount } from "../../hooks/useDiscount.js";
 
 export default function BookingFormView({
   room,
@@ -46,6 +47,20 @@ export default function BookingFormView({
     isLoading: availabilityLoading,
     error: availabilityError,
   } = useAvailability(room?.key, fetchStart, fetchEnd);
+
+  const nights =
+    bookingFormData.checkIn && bookingFormData.checkOut
+      ? Math.ceil(
+          (new Date(bookingFormData.checkOut + "T12:00:00") -
+            new Date(bookingFormData.checkIn + "T12:00:00")) /
+            (1000 * 60 * 60 * 24),
+        )
+      : 0;
+  const { summary, isLoading: discountLoading } = useDiscount(
+    room?.key,
+    bookingFormData.checkIn,
+    nights,
+  );
 
   // ADD THESE LINES:
   // console.log("🔍 Room key:", room?.key);
@@ -394,6 +409,78 @@ export default function BookingFormView({
             placeholder="Any special requests or requirements..."
           />
         </div>
+
+        {/* Price Summary — shows automatically when dates are selected */}
+        {summary && (
+          <div className="md:col-span-2 bg-white/5 border border-white/10 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-300 mb-3">
+              Price Summary
+            </h3>
+
+            {/* Base price row */}
+            <div className="flex justify-between text-sm text-slate-300 mb-2">
+              <span>
+                ₱{summary.pricePerNight.toLocaleString()} × {nights} night
+                {nights > 1 ? "s" : ""}
+              </span>
+              <span
+                className={
+                  summary.hasDiscount ? "line-through text-slate-500" : ""
+                }
+              >
+                ₱{summary.originalTotal.toLocaleString()}
+              </span>
+            </div>
+
+            {/* Discount row — only shows if discount exists */}
+            {summary.hasDiscount && (
+              <>
+                <div className="flex justify-between text-sm text-green-400 mb-2">
+                  <span>🏷️ {summary.discount.name}</span>
+                  <span>− ₱{summary.discountTotal.toLocaleString()}</span>
+                </div>
+
+                <div className="border-t border-white/10 my-3" />
+
+                <div className="flex justify-between font-bold text-white mb-1">
+                  <span>Total</span>
+                  <span className="text-cyan-400">
+                    ₱{summary.finalTotal.toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="flex justify-between text-sm text-slate-300">
+                  <span>Deposit (50%)</span>
+                  <span>₱{summary.depositAmount.toLocaleString()}</span>
+                </div>
+
+                <div className="mt-3 bg-green-500/10 border border-green-500/30 rounded-lg px-4 py-2 text-center text-green-400 text-sm font-semibold">
+                  🎉 You save ₱{summary.discountTotal.toLocaleString()}!
+                </div>
+              </>
+            )}
+
+            {/* No discount — just show total cleanly */}
+            {!summary.hasDiscount && (
+              <>
+                <div className="border-t border-white/10 my-3" />
+                <div className="flex justify-between font-bold text-white mb-1">
+                  <span>Total</span>
+                  <span className="text-cyan-400">
+                    ₱{summary.originalTotal.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm text-slate-300">
+                  <span>Deposit (50%)</span>
+                  <span>
+                    ₱{Math.ceil(summary.originalTotal * 0.5).toLocaleString()}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
         {/* Submit Button */}
         <div className="md:col-span-2">
           <button
