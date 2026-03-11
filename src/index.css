@@ -19,3 +19,7 @@
 .modal-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(103, 232, 249, 0.4);
 }
+
+body:has(.fixed.inset-0) {
+  overflow: hidden;
+}

@@ -65,7 +65,7 @@ export default function Footer({ onAdminAccess }) {
 
       {/* Admin Password Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900 backdrop-blur-sm">
           <div className="bg-slate-800 p-8 rounded-2xl border border-white/10 w-[90%] max-w-md">
             <h2 className="text-2xl font-bold mb-4 text-white">Admin Access</h2>
             <form onSubmit={handleSubmit}>
