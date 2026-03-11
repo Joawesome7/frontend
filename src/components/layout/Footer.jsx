@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer({ onAdminAccess }) {
+  const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,9 +34,10 @@ export default function Footer({ onAdminAccess }) {
 
       if (response.ok) {
         // Store token
-        sessionStorage.setItem("adminToken", data.token);
+        localStorage.setItem("adminToken", data.token);
         setShowPasswordModal(false);
-        onAdminAccess();
+        navigate("/admin");
+        // onAdminAccess();
       } else {
         setError(data.message || "Invalid password");
       }

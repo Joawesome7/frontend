@@ -27,7 +27,7 @@ const AdminDashboard = ({ onClose }) => {
   };
 
   useEffect(() => {
-    const token = sessionStorage.getItem("adminToken");
+    const token = localStorage.getItem("adminToken");
     if (token) {
       setAdminToken(token);
       setIsAuthenticated(true);
@@ -250,7 +250,7 @@ const AdminDashboard = ({ onClose }) => {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("adminToken");
+    localStorage.removeItem("adminToken");
     setIsAuthenticated(false);
     setAdminToken("");
     onClose();
@@ -285,7 +285,7 @@ const AdminDashboard = ({ onClose }) => {
   );
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/95 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/95 backdrop-blur-sm modal-scroll">
       <div className="min-h-screen p-5">
         <div className="max-w-6xl mx-auto">
           {/* Header & Navigation */}
