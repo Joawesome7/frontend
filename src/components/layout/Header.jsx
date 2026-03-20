@@ -22,10 +22,10 @@ export default function Header({
   ];
 
   return (
-    <header className="relative min-h-[72vh] flex items-center justify-center overflow-hidden pt-16">
+    <header className="relative h-[72vh] flex items-center justify-center overflow-hidden pt-16">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `linear-gradient(180deg, rgba(3,7,18,0.35), rgba(3,7,18,0.6)), url(${hero})`,
           filter: "contrast(0.98) saturate(1.03)",
@@ -47,16 +47,19 @@ export default function Header({
           }`}
         >
           {/* 2. Scaled the logo image down slightly for mobile */}
-          <img
-            src={logo}
-            alt="Villa Rose logo"
-            className={`object-contain rounded-full ${
-              isLogoFloating ? "h-8 sm:h-10" : "h-10 sm:h-20"
-            }`}
-            width="80"
-            height="80"
-            onError={(e) => (e.target.style.display = "none")}
-          />
+          <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
+            <img
+              src={logo}
+              alt="Villa Rose logo"
+              className={`object-contain rounded-full ${
+                isLogoFloating ? "h-8 sm:h-10" : "h-10 sm:h-20"
+              }`}
+              width="80"
+              height="80"
+              onError={(e) => (e.target.style.display = "none")}
+            />
+          </div>
+
           {/* 3. Handled long title text to prevent menu overlap on small screens */}
           <span
             className={`font-bold font-serif text-sm sm:text-base text-left text-white leading-tight max-w-[140px] sm:max-w-none ${
