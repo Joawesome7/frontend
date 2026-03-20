@@ -25,7 +25,7 @@ export default function Header({
     <header className="relative h-[72vh] flex items-center justify-center overflow-hidden pt-16">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: `linear-gradient(180deg, rgba(3,7,18,0.35), rgba(3,7,18,0.6)), url(${hero})`,
           filter: "contrast(0.98) saturate(1.03)",
