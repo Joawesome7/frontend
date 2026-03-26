@@ -6,7 +6,7 @@ export default function MapSection() {
 
   // 2. Specific address for the pin
   const address =
-    "Villa Rose Sea Breeze Resort, Langsihan, Purok 4, San Miguel, Baras, 4802 Catanduanes";
+    "Villa Rose Sea Breeze Resort, Langsihan, Purok 4, San Miguel, Baras, 4803 Catanduanes";
   const encodedAddress = encodeURIComponent(address);
 
   // 3. API URL for Embed (Place mode)
@@ -36,7 +36,7 @@ export default function MapSection() {
           <div className="space-y-4 text-slate-300 text-sm">
             <div className="flex items-start gap-3">
               <span className="text-xl">📍</span>
-              <p>Purok 4, San Miguel, Baras, 4802 Catanduanes</p>
+              <p>Purok 4, San Miguel, Baras, 4803 Catanduanes</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-xl">🚗</span>
