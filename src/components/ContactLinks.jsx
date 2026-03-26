@@ -22,7 +22,7 @@ const contactData = [
   {
     id: 4,
     label: "Instagram",
-    href: "instagram.com/villaroseseaabreeze",
+    href: "https://www.instagram.com/villaroseseabreeze/",
     icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
   },
 ];
