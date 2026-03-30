@@ -3,8 +3,8 @@
 const contactData = [
   {
     id: 1,
-    label: "0917 169 5791",
-    href: "tel:0917 169 5791",
+    label: "(0969) 311 9059",
+    href: "tel:0969 311 9059",
     icon: "https://cdn-icons-png.flaticon.com/512/15/15874.png",
   },
   {
