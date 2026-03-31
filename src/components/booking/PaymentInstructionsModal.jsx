@@ -211,7 +211,7 @@ export default function PaymentInstructionsModal({
           <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-2xl">🏦</span>
-              <p className="text-sm font-semibold text-white">MetroBank</p>
+              <p className="text-sm font-semibold text-white">UnionBank</p>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
@@ -225,7 +225,7 @@ export default function PaymentInstructionsModal({
                   onClick={() =>
                     copyToClipboard(
                       paymentData.metrobankNumber,
-                      "MetroBank number",
+                      "UnionBank number",
                     )
                   }
                   className="px-3 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 text-sm rounded-lg transition"
