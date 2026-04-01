@@ -124,9 +124,10 @@ const rulesSlides = [
       {
         subtitle: "14. Cooking & Dining",
         list: [
-          "Common kitchen available (LPG: P300/day).",
-          "No cooking in rooms. Rice cookers allowed with approval.",
-          "Outdoor cooking in designated grill areas only.",
+          "Our kitchen staff is available to cook meals from our menu.",
+          "Cooking is not allowed inside rooms, balconies, or hallways.",
+          "Only rice cookers may be allowed with prior approval.",
+          "Outdoor cooking allowed only in designated grill areas.",
         ],
       },
     ],
@@ -180,7 +181,7 @@ const HouseRulesModal = ({ isOpen, onClose }) => {
 
   const prevSlide = () => {
     setCurrentSlide(
-      (prev) => (prev - 1 + rulesSlides.length) % rulesSlides.length
+      (prev) => (prev - 1 + rulesSlides.length) % rulesSlides.length,
     );
   };
 
