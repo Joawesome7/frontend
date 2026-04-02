@@ -40,8 +40,8 @@ const rulesSlides = [
       {
         subtitle: "2. Guests & Visitors",
         list: [
-          "Follow maximum room capacity. Extra guests will incur additional charges.",
-          "Visitors allowed 9:00 AM – 7:00 PM with front desk approval only.",
+          "Maximum room capacity must be followed. Extra guests will incur additional charges.",
+          "Visitors are allowed from 9:00 AM – 7:00 PM but can stay in the lobby and outside pool area. (Strictly no swimming for non-guest)",
           "Only registered guests are allowed to stay overnight.",
         ],
       },

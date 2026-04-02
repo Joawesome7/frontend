@@ -5,18 +5,6 @@ import AdminDashboard from "./components/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HouseRulesPage from "./pages/HouseRulesPage";
 
-/**
- * App.jsx — Router Hallway
- * ────────────────────────
- * This file only handles routing. No state, no UI.
- *
- * Current routes:
- *   /   → VillaRoseResort (landing page — unchanged for now)
- *
- * Coming soon (we'll add these in later steps):
- *   /rules  → HouseRulesPage
- *   /admin  → AdminPage (wrapped in ProtectedRoute)
- */
 export default function App() {
   return (
     <BrowserRouter>
