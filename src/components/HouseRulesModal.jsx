@@ -7,17 +7,21 @@ const rulesSlides = [
     title: "Welcome to Villa Rose",
     content: [
       {
-        subtitle: "Introduction",
-        text: "Welcome to Villa Rose Sea Breeze Resort! Please take a moment to read our house rules so that everyone can enjoy a comfortable and safe stay.",
+        subtitle: "House Rules",
+        text: "Welcome to Villa Rose Sea Breeze Resort! To ensure a safe, relaxing, and enjoyable stay for all guests, please follow the guidelines below.",
       },
       {
-        subtitle: "1. Check-In / Check-Out",
+        subtitle: "1. Check-In, Check-Out & Payments",
         list: [
           "Check-In: 2:00 PM | Check-Out: 12:00 NN",
           "Early arrivals may wait in the lobby/restaurant.",
-          "Late check-out incurs additional charges.",
-          "50% down payment required to confirm booking.",
-          "Balance must be paid before check-in. No checks accepted.",
+          "Late check-out is subject to additional charges. Reservations & Payments",
+          "A 50% down payment is required to confirm booking.",
+          "Full Balance must be settled before check-in.",
+          "No checks accepted. Cancellations",
+          "No refunds for cancellations, no-shows, or early check-out.",
+          "Rebooking may be allowed within 6 months, subject to availability.",
+          "Travel insurance is recommended for emergencies.",
         ],
       },
     ],
@@ -25,20 +29,20 @@ const rulesSlides = [
   {
     title: "Bookings & Guests",
     content: [
+      // {
+      //   subtitle: "2. Cancellations",
+      //   list: [
+      //     "No refunds for cancelled bookings, no-shows, or early check-out.",
+      //     "Rebooking allowed subject to availability (within 6 months).",
+      //     "Travel insurance is recommended.",
+      //   ],
+      // },
       {
-        subtitle: "2. Cancellations",
+        subtitle: "2. Guests & Visitors",
         list: [
-          "No refunds for cancelled bookings, no-shows, or early check-out.",
-          "Rebooking allowed subject to availability (within 6 months).",
-          "Travel insurance is recommended.",
-        ],
-      },
-      {
-        subtitle: "3. Guests & Visitors",
-        list: [
-          "Follow maximum room capacity. Extra guests have charges.",
-          "Visitors allowed 9:00 AM – 7:00 PM with front desk approval.",
-          "Room service is currently unavailable.",
+          "Follow maximum room capacity. Extra guests will incur additional charges.",
+          "Visitors allowed 9:00 AM – 7:00 PM with front desk approval only.",
+          "Only registered guests are allowed to stay overnight.",
         ],
       },
     ],
@@ -47,20 +51,21 @@ const rulesSlides = [
     title: "Property Care",
     content: [
       {
-        subtitle: "4. Resort Property",
+        subtitle: "3. Resort Property & Damages",
         list: [
           "Lost key fee: P500.",
-          "Do not move/damage furniture. Damage fees apply to broken items and stains (ink, henna, oils).",
-          "Do not flush wipes or objects in toilets.",
+          "Do not move, remove, or damage furniture and room items.",
+          "Charges apply for damages, stains (ink, henna, oils, wet swimsuits), or vandalism.",
+          "Do not flush wipes, cotton, or foreign objects in toilets.",
         ],
       },
       {
-        subtitle: "5. Safety & Security",
+        subtitle: "4. Safety & Security",
         list: [
-          "Keep valuables safe; resort is not liable for losses.",
-          "Unknown visitors are not allowed in rooms.",
-          "Gates close at 8:00 PM. Inform staff if exiting after 10:00 PM.",
-          "Always lock your room.",
+          "Always lock your room and secure your belongings.",
+          "The resort is not liable for lost or stolen items.",
+          "Unauthorized or unknown visitors are not allowed inside the premises.",
+          "Gates close at 8:00 PM. Inform staff if going out beyond this time.",
         ],
       },
     ],
@@ -69,20 +74,30 @@ const rulesSlides = [
     title: "Conduct & Restrictions",
     content: [
       {
-        subtitle: "6. Pets",
-        text: "Pets are not allowed inside rooms unless properly supervised. Damages caused by pets will be charged.",
-      },
-      {
-        subtitle: "7. Proper Conduct",
+        subtitle: "5. Proper Conduct",
         list: [
           "Quiet hours: 10:00 PM - 7:00 AM.",
-          "Loud music/karaoke allowed only for pre-arranged events.",
-          "Illegal drugs and violence result in immediate eviction.",
+          "Karaoke is not allowed within the resort premises.",
+          "Loud music and parties are allowed only for pre-arranged events.",
+          "Disruptive behavior, violence, or illegal activities will result in immediate eviction without refund.",
         ],
       },
       {
-        subtitle: "8. Fixtures",
-        text: "Do not tamper with electrical connections. Report issues immediately.",
+        subtitle: "6. Smoking & Prohibited Substances",
+        list: [
+          "No smoking inside rooms or resort areas. Use designated smoking areas only.",
+          "Violation penalty: ₱500",
+          "Illegal drugs are strictly prohibited.",
+          "Alcohol consumption is allowed in moderation.",
+          "Guests under the influence or minors drinking alcohol are not permitted.",
+        ],
+      },
+      {
+        subtitle: "7. Pets",
+        list: [
+          "Pets are allowed only if properly supervised.",
+          "Any damage caused by pets will be charged to the owner.",
+        ],
       },
     ],
   },
@@ -90,63 +105,80 @@ const rulesSlides = [
     title: "Conservation & Safety",
     content: [
       {
-        subtitle: "9. Alcohol & Substances",
-        text: "Drink responsibly. No alcohol for minors. Illegal drugs strictly banned.",
-      },
-      {
-        subtitle: "10. Conservation",
+        subtitle: "8. Facilities & Electrical Use",
         list: [
-          "Turn off air-con/lights when leaving.",
-          "Keep doors closed when aircon is on.",
-          "Do not leave gadgets charging unattended.",
+          "Do not tamper with electrical fixtures or connections.",
+          "Report any issues immediately to staff.",
+          "Turn off air-conditioning, lights, and appliances when not in use.",
+          "Keep doors/windows closed when air-conditioning is on.",
         ],
       },
       {
-        subtitle: "11. Fire Safety",
+        subtitle: "9. Cleanliness & Care",
         list: [
-          "No large fires/unattended grills.",
-          "Smoking only in designated areas. No candles/stoves in rooms.",
+          "Dispose of trash properly; use designated bins.",
+          "Rinse off sand before entering rooms.",
+          "Do not hang clothes or towels on balcony railings-use drying racks.",
         ],
       },
-    ],
-  },
-  {
-    title: "Cleanliness & Dining",
-    content: [
       {
-        subtitle: "12. Wet Clothing",
-        text: "Use drying racks. Do not hang clothes on balcony railings.",
-      },
-      {
-        subtitle: "13. Cleanliness",
-        text: "Do not litter. Rinse off sand before entering rooms.",
-      },
-      {
-        subtitle: "14. Cooking & Dining",
+        subtitle: "10. Cooking & Dining",
         list: [
-          "Our kitchen staff is available to cook meals from our menu.",
-          "Cooking is not allowed inside rooms, balconies, or hallways.",
-          "Only rice cookers may be allowed with prior approval.",
-          "Outdoor cooking allowed only in designated grill areas.",
+          "Cooking is not allowed anywhere on the premises.",
+          "Outside food and drinks are not permitted.",
+          "Sky view Kitchen is open until 8:00 PM.",
         ],
       },
     ],
   },
   {
-    title: "Parking & Pool Rules",
+    title: "Other Rules",
     content: [
       {
-        subtitle: "15. Parking",
-        text: "Park in designated areas with pass visible. Resort not liable for vehicle damage.",
+        subtitle: "11. Swimming Pool Rules",
+        list: [
+          "Pool hours: 7:00 AM - 8:00 PM",
+          "For registered guests only.",
+          "No lifeguard on duty - swim at your own risk.",
+          "Proper swimwear is required; children must wear swim diapers.",
+          "Shower before entering the pool.",
+          "No food, drinks, glass items, smoking, pets, running, diving, or horseplay.",
+          "Do not swim while intoxicated or during bad weather.",
+          "Parents/guardians must supervise children at all times.",
+        ],
+      },
+      // {
+      //   subtitle: "13. Cleanliness",
+      //   text: "Do not litter. Rinse off sand before entering rooms.",
+      // },
+      // {
+      //   subtitle: "14. Cooking & Dining",
+      //   list: [
+      //     "Our kitchen staff is available to cook meals from our menu.",
+      //     "Cooking is not allowed inside rooms, balconies, or hallways.",
+      //     "Only rice cookers may be allowed with prior approval.",
+      //     "Outdoor cooking allowed only in designated grill areas.",
+      //   ],
+      // },
+    ],
+  },
+  {
+    title: "Parking Rules & Safety Reminders",
+    content: [
+      {
+        subtitle: "12. Parking",
+        list: [
+          "Park only in designated areas.",
+          "Display your parking pass visibly.",
+          "The resort is not liable for vehicle damage or loss.",
+        ],
       },
       {
-        subtitle: "16. Swimming Pool (7AM - 8PM)",
+        subtitle: "13. General Safety Reminders",
         list: [
-          "Registered guests only. No lifeguard on duty.",
-          "Proper swimwear required (swim diapers for kids).",
-          "No food, glass, pets, or running.",
-          "Shower before entering.",
-          "Intoxicated guests may not swim.",
+          "Open flames, candles, and cooking stoves are not allowed in rooms.",
+          "Avoid climbing railings or engaging in unsafe behavior.",
+          "Keep hallways and walkways clear at all times.",
         ],
       },
     ],
@@ -154,17 +186,17 @@ const rulesSlides = [
   {
     title: "Conclusion",
     content: [
+      // {
+      //   subtitle: "13. Pool Safety",
+      //   text: "Night swimming discouraged. Parents must watch children at all times.",
+      // },
       {
-        subtitle: "17. Pool Safety",
-        text: "Night swimming discouraged. Parents must watch children at all times.",
-      },
-      {
-        subtitle: "18. Snack Bar",
-        text: "Open from 8:00 AM – 8:00 PM",
+        subtitle: "14. Snack Bar",
+        text: "Open daily from 8:00 AM – 8:00 PM",
       },
       {
         subtitle: "Important Reminder",
-        text: "Failure to follow rules may result in eviction without refund. By booking, you agree to these rules. Enjoy your stay at Villa Rose!",
+        text: "Failure to comply with these rules may result in eviction without refund. By confirming your booking, you agree to follow all house rules. Thank you, and enjoy your stay at Villa Rose Sea Breeze Resort!",
       },
     ],
   },
