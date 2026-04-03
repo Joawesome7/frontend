@@ -40,9 +40,15 @@ const rulesSlides = [
       {
         subtitle: "2. Guests & Visitors",
         list: [
-          "Maximum room capacity must be followed. Extra guests will incur additional charges.",
-          "Visitors are allowed from 9:00 AM – 7:00 PM but can stay in the lobby and outside pool area. (Strictly no swimming for non-guest)",
-          "Only registered guests are allowed to stay overnight.",
+          "Maximum room capacity must be strictly observed. Additional guests beyond the allowed capacity will incur corresponding charges.",
+          "Visitors are allowed from 9:00 AM to 7:00 PM only and may stay in the lobby and outdoor pool area. Swimming is strictly not allowed for non-registered guests unless with paid access.",
+          "Only registered guests are permitted to stay overnight. Visitor & Extra Guest Charges: ",
+          "• 1–2 extra persons: ₱200 per head (with pool access)",
+          "• 3–4 extra persons: ₱300 per head (with pool access)",
+          "• Visitors without pool access: ₱100 per head",
+          "• Guests may add overnight companions with an extra bed (with charge), provided the room was originally booked for 4 guests and total occupancy does not exceed 6 persons per room.",
+          "• Extra bed charge: ₱300 per head for visitors with pool access (₱200/₱300 rate), and ₱500 per head for visitors without pool access.",
+          "All charges apply only to visitors of confirmed in-house guests.",
         ],
       },
     ],
