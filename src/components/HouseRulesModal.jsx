@@ -4,24 +4,25 @@ import { X, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 // 1. Organize the long content into logical slides
 const rulesSlides = [
   {
-    title: "Welcome to Villa Rose",
+    title: "Welcome to Villa Rose Sea Breeze Resort!",
     content: [
       {
-        subtitle: "House Rules",
+        subtitle: "Villa Rose Sea Breeze Resort - House Rules",
         text: "Welcome to Villa Rose Sea Breeze Resort! To ensure a safe, relaxing, and enjoyable stay for all guests, please follow the guidelines below.",
       },
       {
         subtitle: "1. Check-In, Check-Out & Payments",
         list: [
-          "Check-In: 2:00 PM | Check-Out: 11:30 AM",
+          "Check-In: 2:00 PM",
+          "Check-Out: 11:30 AM",
           "Early arrivals may wait in the lobby/restaurant.",
           "Late check-out beyond 12:00 NN will incur a P500 charge.",
-          // "A 50% down payment is required to confirm booking.",
-          // "Full Balance must be settled before check-in.",
-          // "No checks accepted. Cancellations",
-          // "No refunds for cancellations, no-shows, or early check-out.",
-          // "Rebooking may be allowed within 6 months, subject to availability.",
-          // "Travel insurance is recommended for emergencies.",
+          "A 50% down payment is required to confirm booking.",
+          "Full Balance must be settled before check-in.",
+          "No cards and checks accepted.",
+          "No refunds for cancellations, no-shows, or early check-out.",
+          "Rebooking may be allowed within 6 months, subject to availability.",
+          "Travel insurance is recommended for emergencies.",
         ],
       },
     ],
@@ -40,15 +41,11 @@ const rulesSlides = [
       {
         subtitle: "2. Guests & Visitors",
         list: [
-          "Maximum room capacity must be strictly observed. Additional guests beyond the allowed capacity will incur corresponding charges.",
-          "Visitors are allowed from 9:00 AM to 7:00 PM only and may stay in the lobby and outdoor pool area. Swimming is strictly not allowed for non-registered guests unless with paid access.",
-          "Only registered guests are permitted to stay overnight. Visitor & Extra Guest Charges: ",
-          "• 1–2 extra persons: ₱200 per head (with pool access)",
-          "• 3–4 extra persons: ₱300 per head (with pool access)",
-          "• Visitors without pool access: ₱100 per head",
-          "• Guests may add overnight companions with an extra bed (with charge), provided the room was originally booked for 4 guests and total occupancy does not exceed 6 persons per room.",
-          "• Extra bed charge: ₱300 per head for visitors with pool access (₱200/₱300 rate), and ₱500 per head for visitors without pool access.",
-          "All charges apply only to visitors of confirmed in-house guests.",
+          "Maximum room capacity must be followed. Extra guests will incur additional charges.",
+          "₱200/head with pool access (maximum of 2 pax)",
+          "₱300/head with pool access",
+          "Visitors are allowed from 9:00 AM – 7:00 PM but can stay in the lobby and outside pool area. (Strictly no swimming for non-guest)",
+          "Only registered guests are allowed to stay overnight.",
         ],
       },
     ],
@@ -84,7 +81,8 @@ const rulesSlides = [
         list: [
           "Quiet hours: 10:00 PM - 7:00 AM.",
           "Karaoke is not allowed within the resort premises.",
-          "Loud music and parties are not allowed:",
+          "Bringing of Speakers is not allowed.",
+          "Loud music and parties are not allowed.",
           "Violation Penalty:",
           "P2000 - first offense",
           "P5000 - second offense",
@@ -94,8 +92,8 @@ const rulesSlides = [
       {
         subtitle: "6. Smoking & Prohibited Substances",
         list: [
-          "No smoking inside rooms or resort areas. Use designated smoking areas only.",
-          "Violation penalty: ₱500",
+          "No smoking including VAPING inside rooms or resort areas. Use designated smoking areas only.",
+          "Violation penalty: ₱2000",
           "Illegal drugs are strictly prohibited.",
           "Alcohol consumption is allowed in moderation.",
           "Guests under the influence or minors drinking alcohol are not permitted.",
@@ -104,7 +102,7 @@ const rulesSlides = [
       {
         subtitle: "7. Pets",
         list: [
-          "Pets are allowed only if properly supervised.",
+          "NO PETS ARE ALLOWED.",
           "Any damage caused by pets will be charged to the owner.",
         ],
       },
@@ -127,7 +125,7 @@ const rulesSlides = [
         list: [
           "Dispose of trash properly; use designated bins.",
           "Rinse off sand before entering rooms.",
-          "Do not hang clothes or towels on balcony railings-use drying racks.",
+          "Do not hang clothes or towels on balcony railings—use drying racks.",
         ],
       },
       {
@@ -135,7 +133,7 @@ const rulesSlides = [
         list: [
           "Cooking is not allowed anywhere on the premises.",
           "Outside food and drinks are not permitted.",
-          "Sky view Kitchen is open until 8:00 PM.",
+          "SkyView Caffe and Restaurant is open until 9:00 PM.",
         ],
       },
     ],
@@ -148,7 +146,6 @@ const rulesSlides = [
         list: [
           "Pool hours: 7:00 AM - 8:00 PM",
           "For registered guests only.",
-          "No lifeguard on duty - swim at your own risk.",
           "Proper swimwear is required; children must wear swim diapers.",
           "Shower before entering the pool.",
           "No food, drinks, glass items, smoking, pets, running, diving, or horseplay.",
@@ -156,19 +153,6 @@ const rulesSlides = [
           "Parents/guardians must supervise children at all times.",
         ],
       },
-      // {
-      //   subtitle: "13. Cleanliness",
-      //   text: "Do not litter. Rinse off sand before entering rooms.",
-      // },
-      // {
-      //   subtitle: "14. Cooking & Dining",
-      //   list: [
-      //     "Our kitchen staff is available to cook meals from our menu.",
-      //     "Cooking is not allowed inside rooms, balconies, or hallways.",
-      //     "Only rice cookers may be allowed with prior approval.",
-      //     "Outdoor cooking allowed only in designated grill areas.",
-      //   ],
-      // },
     ],
   },
   {
