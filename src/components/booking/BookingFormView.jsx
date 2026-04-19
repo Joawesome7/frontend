@@ -5,6 +5,7 @@
  * Fixes:
  * 1. Date off-by-one bug (timezone issue)
  * 2. Booked dates not showing as unavailable
+ * 3. Implemented Turnover Day logic (Check-out can fall on a check-in day)
  */
 
 import React, { useState, useMemo } from "react";
@@ -46,6 +47,9 @@ export default function BookingFormView({
     unavailableDates,
     isLoading: availabilityLoading,
     error: availabilityError,
+    isCheckInDisabled,
+    isCheckOutDisabled,
+    getMaxCheckOutDate,
   } = useAvailability(room?.key, fetchStart, fetchEnd);
 
   const nights =
@@ -61,16 +65,6 @@ export default function BookingFormView({
     bookingFormData.checkIn,
     nights,
   );
-
-  // ADD THESE LINES:
-  // console.log("🔍 Room key:", room?.key);
-  // console.log("📦 Unavailable dates:", unavailableDates);
-
-  // DEBUG: Log what we're getting from API
-  // console.log("🔍 Debug Info:");
-  // console.log("Room key:", room?.key);
-  // console.log("Unavailable dates from API:", unavailableDates);
-  // console.log("Fetch range:", fetchStart, "to", fetchEnd);
 
   // Convert bookingFormData dates to Date objects (FIX #1: Timezone handling)
   const checkInDate = bookingFormData.checkIn
@@ -108,7 +102,8 @@ export default function BookingFormView({
       return false;
     }
 
-    return !isDateUnavailable(date);
+    // Check against the hook's check-in logic
+    return !isCheckInDisabled(date);
   };
 
   // Filter dates for check-out
@@ -117,15 +112,20 @@ export default function BookingFormView({
       return false;
     }
 
-    // Check-out must be after check-in
-    const minDate = new Date(checkInDate);
-    minDate.setDate(minDate.getDate() + 1);
+    // Standardize both dates to midnight so we are ONLY comparing the calendar day
+    const compareDate = new Date(date);
+    compareDate.setHours(0, 0, 0, 0);
 
-    if (date <= checkInDate) {
+    const compareCheckIn = new Date(checkInDate);
+    compareCheckIn.setHours(0, 0, 0, 0);
+
+    // You cannot check out on or before the day you arrive
+    if (compareDate <= compareCheckIn) {
       return false;
     }
 
-    return !isDateUnavailable(date);
+    // Check against the hook's check-out logic
+    return !isCheckOutDisabled(date);
   };
 
   // Handle check-in change (FIX #1: Proper date conversion)
@@ -232,7 +232,7 @@ export default function BookingFormView({
             calendarClassName="villa-rose-calendar"
             disabled={availabilityLoading}
             dayClassName={(date) => {
-              if (isDateUnavailable(date)) {
+              if (isCheckInDisabled(date)) {
                 return "unavailable-date";
               }
               return undefined;
@@ -260,13 +260,14 @@ export default function BookingFormView({
                 ? new Date(checkInDate.getTime() + 86400000)
                 : new Date()
             }
+            maxDate={getMaxCheckOutDate(checkInDate)} // Prevents selecting past the next booked guest
             placeholderText="Select check-out date"
             dateFormat="MMMM d, yyyy"
             className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-cyan-400 focus:outline-none"
             calendarClassName="villa-rose-calendar"
             disabled={availabilityLoading || !bookingFormData.checkIn}
             dayClassName={(date) => {
-              if (isDateUnavailable(date)) {
+              if (isCheckOutDisabled(date)) {
                 return "unavailable-date";
               }
               return undefined;

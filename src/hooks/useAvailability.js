@@ -29,6 +29,15 @@ export const useAvailability = (roomType, startDate, endDate, options = {}) => {
   // Use your existing API_URL from environment
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
+  // --- HELPER: SAFE DATE FORMATTING ---
+  // Prevents UTC timezone shifts that happen with standard .toISOString()
+  const formatLocalDate = (date) => {
+    if (!date) return null;
+    const offset = date.getTimezoneOffset();
+    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
+    return adjustedDate.toISOString().split("T")[0];
+  };
+
   const fetchAvailability = useCallback(async () => {
     if (!roomType || !startDate || !endDate || !enabled) {
       return;
@@ -111,19 +120,65 @@ export const useAvailability = (roomType, startDate, endDate, options = {}) => {
     return () => clearInterval(intervalId);
   }, [fetchAvailability, refetchInterval, enabled]);
 
-  const isDateUnavailable = useCallback(
+  // --- DATE PICKER LOGIC ---
+
+  // 1. Check-In: Disabled if the exact night is in the unavailable array
+  const isCheckInDisabled = useCallback(
     (date) => {
-      const dateStr = date.toISOString().split("T")[0];
+      const dateStr = formatLocalDate(date);
       return unavailableDates.includes(dateStr);
     },
     [unavailableDates],
   );
+
+  // 2. Check-Out: Disabled ONLY if the night BEFORE is unavailable
+  const isCheckOutDisabled = useCallback(
+    (date) => {
+      const nightBefore = new Date(date);
+      nightBefore.setDate(nightBefore.getDate() - 1);
+      const dateStr = formatLocalDate(nightBefore);
+      return unavailableDates.includes(dateStr);
+    },
+    [unavailableDates],
+  );
+
+  // 3. Max Check-Out Date: Prevents booking "through" someone else's reservation
+  const getMaxCheckOutDate = useCallback(
+    (selectedStartDate) => {
+      if (!selectedStartDate) return null;
+
+      const startStr = formatLocalDate(selectedStartDate);
+      const sortedDates = [...unavailableDates].sort();
+
+      for (const dateStr of sortedDates) {
+        // Find the first fully booked night that happens ON or AFTER the check-in date
+        if (dateStr >= startStr) {
+          // Convert "YYYY-MM-DD" back into a local Date object securely
+          const [year, month, day] = dateStr.split("-");
+          return new Date(year, month - 1, day, 23, 59, 59);
+        }
+      }
+      return null; // No upcoming bookings, free to book indefinitely
+    },
+    [unavailableDates],
+  );
+
+  // const isDateUnavailable = useCallback(
+  //   (date) => {
+  //     const dateStr = date.toISOString().split("T")[0];
+  //     return unavailableDates.includes(dateStr);
+  //   },
+  //   [unavailableDates],
+  // );
 
   return {
     unavailableDates,
     isLoading,
     error,
     refetch: fetchAvailability,
-    isDateUnavailable,
+    // isDateUnavailable,
+    isCheckInDisabled,
+    isCheckOutDisabled,
+    getMaxCheckOutDate,
   };
 };
